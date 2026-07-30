@@ -1,101 +1,123 @@
-import pygame
 import random
+import pygame
 
 pygame.init()
 
-# ---------------- SETTINGS ----------------
 WIDTH, HEIGHT = 900, 600
 FPS = 60
 
 ORGANISM_COUNT = 20
 ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
-BACKGROUND_COLOR = (255, 255, 255)
 
 FOOD_COUNT = 50
 FOOD_RADIUS = 5
-FOOD_COLOUR = (0, 180, 0)
+FOOD_COLOR = (0, 180, 0)
+
+BACKGROUND_COLOR = (255, 255, 255)
 
 MIN_SPEED = 1
 MAX_SPEED = 3
 STARTING_ENERGY = 100
 
-# ---------------- SCREEN SETUP ----------------
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator- 1st version")
+pygame.display.set_caption("Evolution Simulator - Version 1")
 
 clock = pygame.time.Clock()
 
 
-# ---------------- ORGANISM FUNCTIONS ----------------
 def create_organism():
-    organism = {
-        "x": random.randint(0, WIDTH),
-        "y": random.randint(0, HEIGHT),
+    return {
+        "x": random.randint(
+            ORGANISM_RADIUS,
+            WIDTH - ORGANISM_RADIUS
+        ),
+        "y": random.randint(
+            ORGANISM_RADIUS,
+            HEIGHT - ORGANISM_RADIUS
+        ),
         "speed": random.uniform(MIN_SPEED, MAX_SPEED),
         "energy": STARTING_ENERGY
     }
-    return organism
 
 
-def move_organism(org):
-    org["x"] += random.uniform(-org["speed"], org["speed"])
-    org["y"] += random.uniform(-org["speed"], org["speed"])
+def move_organism(organism):
+    organism["x"] += random.uniform(
+        -organism["speed"],
+        organism["speed"]
+    )
+    organism["y"] += random.uniform(
+        -organism["speed"],
+        organism["speed"]
+    )
 
-    org["x"] = max(0, min(WIDTH, org["x"]))
-    org["y"] = max(0, min(HEIGHT, org["y"]))
+    organism["x"] = max(
+        ORGANISM_RADIUS,
+        min(WIDTH - ORGANISM_RADIUS, organism["x"])
+    )
+
+    organism["y"] = max(
+        ORGANISM_RADIUS,
+        min(HEIGHT - ORGANISM_RADIUS, organism["y"])
+    )
 
 
-def draw_organism(org):
+def draw_organism(organism):
     pygame.draw.circle(
         screen,
         ORGANISM_COLOR,
-        (int(org["x"]), int(org["y"])),
+        (int(organism["x"]), int(organism["y"])),
         ORGANISM_RADIUS
     )
 
-# ---------------- CREATE ORGANISMS ----------------
-organisms = []
 
-for i in range(ORGANISM_COUNT):
-    organisms.append(create_organism())
-
-#----------------- CREATE FOOD FUNCTION-------------
 def create_food():
-    food_item = {
-        "x": random.randint(0, WIDTH),
-        "y": random.randint(0, HEIGHT)
+    return {
+        "x": random.randint(
+            FOOD_RADIUS,
+            WIDTH - FOOD_RADIUS
+        ),
+        "y": random.randint(
+            FOOD_RADIUS,
+            HEIGHT - FOOD_RADIUS
+        )
     }
-    return food_item
+
 
 def draw_food(food_item):
     pygame.draw.circle(
-        screen, 
-        FOOD_COLOUR,
+        screen,
+        FOOD_COLOR,
         (int(food_item["x"]), int(food_item["y"])),
         FOOD_RADIUS
     )
 
-#----------------- CREATE FOOD----------------------
-food = []
 
-for i in range(FOOD_COUNT):
-    food.append(create_food())
+organisms = [
+    create_organism()
+    for _ in range(ORGANISM_COUNT)
+]
 
+foods = [
+    create_food()
+    for _ in range(FOOD_COUNT)
+]
 
-# ---------------- MAIN SIMULATION LOOP ----------------
 running = True
 
 while running:
-    screen.fill(BACKGROUND_COLOR)
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    for org in organisms:
-        move_organism(org)
-        draw_organism(org)
+    screen.fill(BACKGROUND_COLOR)
+
+    for food_item in foods:
+        draw_food(food_item)
+
+    for organism in organisms:
+        move_organism(organism)
+        draw_organism(organism)
 
     pygame.display.flip()
     clock.tick(FPS)
