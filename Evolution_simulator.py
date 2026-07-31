@@ -26,80 +26,74 @@ pygame.display.set_caption("Evolution Simulator - Version 1")
 clock = pygame.time.Clock()
 
 
-def create_organism():
-    return {
-        "x": random.randint(
+class Organism:
+    def __init__(self):
+        self.x = random.randint(
             ORGANISM_RADIUS,
             WIDTH - ORGANISM_RADIUS
-        ),
-        "y": random.randint(
+        )
+        self.y = random.randint(
             ORGANISM_RADIUS,
             HEIGHT - ORGANISM_RADIUS
-        ),
-        "speed": random.uniform(MIN_SPEED, MAX_SPEED),
-        "energy": STARTING_ENERGY
-    }
+        )
+        self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
+        self.energy = STARTING_ENERGY
+
+    def move(self):
+        self.x += random.uniform(
+            -self.speed,
+            self.speed
+        )
+        self.y += random.uniform(
+            -self.speed,
+            self.speed
+        )
+
+        self.x = max(
+            ORGANISM_RADIUS,
+            min(WIDTH - ORGANISM_RADIUS, self.x)
+        )
+        self.y = max(
+            ORGANISM_RADIUS,
+            min(HEIGHT - ORGANISM_RADIUS, self.y)
+        )
+
+    def draw(self):
+        pygame.draw.circle(
+            screen,
+            ORGANISM_COLOR,
+            (int(self.x), int(self.y)),
+            ORGANISM_RADIUS
+        )
 
 
-def move_organism(organism):
-    organism["x"] += random.uniform(
-        -organism["speed"],
-        organism["speed"]
-    )
-    organism["y"] += random.uniform(
-        -organism["speed"],
-        organism["speed"]
-    )
-
-    organism["x"] = max(
-        ORGANISM_RADIUS,
-        min(WIDTH - ORGANISM_RADIUS, organism["x"])
-    )
-
-    organism["y"] = max(
-        ORGANISM_RADIUS,
-        min(HEIGHT - ORGANISM_RADIUS, organism["y"])
-    )
-
-
-def draw_organism(organism):
-    pygame.draw.circle(
-        screen,
-        ORGANISM_COLOR,
-        (int(organism["x"]), int(organism["y"])),
-        ORGANISM_RADIUS
-    )
-
-
-def create_food():
-    return {
-        "x": random.randint(
+class Food:
+    def __init__(self):
+        self.x = random.randint(
             FOOD_RADIUS,
             WIDTH - FOOD_RADIUS
-        ),
-        "y": random.randint(
+        )
+        self.y = random.randint(
             FOOD_RADIUS,
             HEIGHT - FOOD_RADIUS
         )
-    }
 
-
-def draw_food(food_item):
-    pygame.draw.circle(
-        screen,
-        FOOD_COLOR,
-        (int(food_item["x"]), int(food_item["y"])),
-        FOOD_RADIUS
-    )
+    def draw(self):
+        pygame.draw.circle(
+            screen,
+            FOOD_COLOR,
+            (self.x, self.y),
+            FOOD_RADIUS
+        )
 
 
 organisms = [
-    create_organism()
+    Organism()
     for _ in range(ORGANISM_COUNT)
 ]
 
 foods = [
-    create_food()
+    Food()
     for _ in range(FOOD_COUNT)
 ]
 
@@ -113,11 +107,11 @@ while running:
     screen.fill(BACKGROUND_COLOR)
 
     for food_item in foods:
-        draw_food(food_item)
+        food_item.draw()
 
     for organism in organisms:
-        move_organism(organism)
-        draw_organism(organism)
+        organism.move()
+        organism.draw()
 
     pygame.display.flip()
     clock.tick(FPS)
