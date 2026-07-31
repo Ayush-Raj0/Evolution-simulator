@@ -66,6 +66,15 @@ class Organism:
             ORGANISM_RADIUS
         )
 
+    def collides_with(self, food_item):
+        dx = self.x - food_item.x
+        dy = self.y - food_item.y
+        distance_squared = dx ** 2 + dy ** 2
+
+        return distance_squared <= (
+            ORGANISM_RADIUS + FOOD_RADIUS
+        ) ** 2
+
 
 class Food:
     def __init__(self):
@@ -111,6 +120,11 @@ while running:
 
     for organism in organisms:
         organism.move()
+
+        for food_item in foods:
+            if organism.collides_with(food_item):
+                print("Detected food collision")
+
         organism.draw()
 
     pygame.display.flip()
