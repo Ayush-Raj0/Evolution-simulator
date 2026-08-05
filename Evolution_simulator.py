@@ -19,9 +19,10 @@ BACKGROUND_COLOR = (255, 255, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
 STARTING_ENERGY = 100
+ENERGY_LOSS_RATE= 10
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator - Version 4")
+pygame.display.set_caption("Evolution Simulator - Version 7")
 
 clock = pygame.time.Clock()
 
@@ -38,6 +39,7 @@ class Organism:
         )
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
         self.energy = STARTING_ENERGY
+
 
     def move(self):
         self.x += random.uniform(
@@ -78,6 +80,10 @@ class Organism:
     def eat(self, food_item):
         self.energy+= food_item.energy_value
 
+    def lose_energy(self, dt):
+        self.energy-= ENERGY_LOSS_RATE*dt
+
+
 
 class Food:
     def __init__(self):
@@ -113,6 +119,7 @@ foods = [
 running = True
 
 while running:
+    dt=clock.tick(FPS)/1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -122,17 +129,19 @@ while running:
     for food_item in foods:
         food_item.draw()
 
-    for organism in organisms:
+    for organism in organisms[:]:
         organism.move()
-        organism.draw()
-
+        organism.lose_energy(dt)
+        if organism.energy<=0:
+            organisms.remove(organism)
+            continue
         for food_item in foods[:]:
             if organism.collides_with(food_item):
                 organism.eat(food_item)
                 foods.remove(food_item)
+       
+        organism.draw()
     
-
     pygame.display.flip()
-    clock.tick(FPS)
 
 pygame.quit()
