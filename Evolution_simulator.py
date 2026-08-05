@@ -21,7 +21,7 @@ MAX_SPEED = 3
 STARTING_ENERGY = 100
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator - Version 1")
+pygame.display.set_caption("Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
 
@@ -74,6 +74,9 @@ class Organism:
         return distance_squared <= (
             ORGANISM_RADIUS + FOOD_RADIUS
         ) ** 2
+    
+    def eat(self, food_item):
+        self.energy+= food_item.energy_value
 
 
 class Food:
@@ -86,6 +89,7 @@ class Food:
             FOOD_RADIUS,
             HEIGHT - FOOD_RADIUS
         )
+        self.energy_value = 10
 
     def draw(self):
         pygame.draw.circle(
@@ -120,12 +124,13 @@ while running:
 
     for organism in organisms:
         organism.move()
-
-        for food_item in foods:
-            if organism.collides_with(food_item):
-                print("Detected food collision")
-
         organism.draw()
+
+        for food_item in foods[:]:
+            if organism.collides_with(food_item):
+                organism.eat(food_item)
+                foods.remove(food_item)
+    
 
     pygame.display.flip()
     clock.tick(FPS)
