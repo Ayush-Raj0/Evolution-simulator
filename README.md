@@ -1,32 +1,60 @@
-Evolution Simulator
+# Evolution Simulator
+To explore how complex traits may emerge under environmental and evolutionary pressures.
 
-To explore how complex traits emerge under environmental and evolutionary pressures.
+## Overview
+Evolution Simulator is an independent project built in Python using Pygame. It simulates organisms interacting with a simple environment in which they move, consume food, expend energy over time, and die if they are unable to sustain themselves.
 
-Overview
+The project began from a question: **How do organisms evolve and adapt when exposed to environmental pressures and external stimuli?**
 
-This project is an evolution simulator built in Python using Pygame. Organisms move through a simulated environment, consume food, lose energy over time, and eventually die if they cannot sustain themselves.
+The current version establishes the basic simulation mechanics required to explore that question. The longer-term goal is to introduce reproduction, inherited traits, mutation, and additional environmental pressures so that populations can evolve over multiple generations.
 
-The long-term goal is to introduce reproduction, inherited traits, mutation, and environmental pressures so that populations can gradually evolve over multiple generations.
+## Current Features
+* Random organism movement
+* Energy consumption over time
+* Food consumption and energy recovery
+* Collision detection
+* Organism death based on energy level
+* Real-time graphical simulation using Pygame
 
-Current Features
+## Planned Features
+* Reproduction
+* Genetic inheritance
+* Trait mutation
+* Vision and sensing
+* Different metabolic strategies
+* Population statistics
+* Multi-generation evolution
 
-- Random organism movement
-- Energy consumption over time
-- Food and energy recovery
-- Collision detection
-- Organism death based on energy
-- Real-time graphical simulation using Pygame
+## Built With
 
-Planned Features
+* Python
+* Pygame
 
-- Reproduction
-- Genetic inheritance
-- Trait mutation
-- Vision and sensing
-- Different metabolic strategies
-- Population statistics
-- Multi-generation evolution
+## Development
+The project was developed independently using Visual Studio Code. A public roadmap and development log are included in the repository to document the project's progression and planned future additions.
 
-Built With
+## How to Run
+To run the Evolution Simulator on your computer:
 
-- Python
+1. Install Python if it is not already installed.
+
+2. Open a command-line window:
+
+   * **Windows:** Press `Windows + R`, type `cmd`, and press Enter.
+   * **macOS:** Open **Terminal** from Applications → Utilities, or search for “Terminal” using Spotlight.
+
+3. Install Pygame by entering the following command:
+
+   `pip install pygame`
+
+   On some macOS systems, you may need to use:
+
+   `pip3 install pygame`
+
+4. Clone or download this repository to your computer.
+
+5. Open the downloaded project folder in Visual Studio Code or another Python IDE/code editor.
+
+6. Open the main Python file.
+
+7. Run the file to start the Evolution Simulator.
