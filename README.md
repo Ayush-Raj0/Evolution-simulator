@@ -55,6 +55,6 @@ To run the Evolution Simulator on your computer:
 
 5. Open the downloaded project folder in Visual Studio Code or another Python IDE/code editor.
 
-6. Open the main Python file.
+6. Open the `Evolution_simulator` file.
 
-7. Run the file to start the Evolution Simulator.
+7. Run the `Evolution_simulator` file to start the Evolution Simulator.
