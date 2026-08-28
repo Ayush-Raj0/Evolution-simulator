@@ -6,23 +6,26 @@ pygame.init()
 WIDTH, HEIGHT = 900, 600
 FPS = 60
 
-ORGANISM_COUNT = 20
+ORGANISM_COUNT = 3
 ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
+MIN_SPEED = 1
+MAX_SPEED = 3
+STARTING_ENERGY = 105
+ENERGY_LOSS_RATE = 5
+REPRODUCTION_THRESHOLD = 115
+REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
-FOOD_COUNT = 50
+
+
+FOOD_COUNT = 75
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
 
 BACKGROUND_COLOR = (255, 255, 255)
 
-MIN_SPEED = 1
-MAX_SPEED = 3
-STARTING_ENERGY = 100
-ENERGY_LOSS_RATE= 10
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator - Version 7")
+pygame.display.set_caption("Evolution Simulator - Version 3")
 
 clock = pygame.time.Clock()
 
@@ -60,13 +63,8 @@ class Organism:
             min(HEIGHT - ORGANISM_RADIUS, self.y)
         )
 
-    def draw(self):
-        pygame.draw.circle(
-            screen,
-            ORGANISM_COLOR,
-            (int(self.x), int(self.y)),
-            ORGANISM_RADIUS
-        )
+    def lose_energy(self, dt):
+        self.energy -= ENERGY_LOSS_RATE * dt
 
     def collides_with(self, food_item):
         dx = self.x - food_item.x
@@ -78,11 +76,23 @@ class Organism:
         ) ** 2
     
     def eat(self, food_item):
-        self.energy+= food_item.energy_value
+        self.energy += food_item.energy_value
 
-    def lose_energy(self, dt):
-        self.energy-= ENERGY_LOSS_RATE*dt
+    def reproduce(self):
+        if self.energy >= REPRODUCTION_THRESHOLD:
+            child = Organism()
+            child.x=self.x + random.uniform(-20,20)
+            child.y=(self.y + random.uniform(-20,20))
+            self.energy -= REPRODUCTION_ENERGY_COST
+            return child
 
+    def draw(self):
+        pygame.draw.circle(
+            screen,
+            ORGANISM_COLOR,
+            (int(self.x), int(self.y)),
+            ORGANISM_RADIUS
+        )
 
 
 class Food:
@@ -95,7 +105,7 @@ class Food:
             FOOD_RADIUS,
             HEIGHT - FOOD_RADIUS
         )
-        self.energy_value = 10
+        self.energy_value = 40
 
     def draw(self):
         pygame.draw.circle(
@@ -105,21 +115,13 @@ class Food:
             FOOD_RADIUS
         )
 
-
-organisms = [
-    Organism()
-    for _ in range(ORGANISM_COUNT)
-]
-
-foods = [
-    Food()
-    for _ in range(FOOD_COUNT)
-]
+organisms = [Organism() for _ in range(ORGANISM_COUNT)]
+foods = [Food() for _ in range(FOOD_COUNT)]
 
 running = True
 
 while running:
-    dt=clock.tick(FPS)/1000
+    dt = clock.tick(FPS)/1000
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -132,13 +134,20 @@ while running:
     for organism in organisms[:]:
         organism.move()
         organism.lose_energy(dt)
-        if organism.energy<=0:
+
+
+        if organism.energy <= 0:
             organisms.remove(organism)
             continue
+
         for food_item in foods[:]:
             if organism.collides_with(food_item):
                 organism.eat(food_item)
                 foods.remove(food_item)
+
+        child=organism.reproduce()
+        if child is not None:
+            organisms.append(child)
        
         organism.draw()
     
