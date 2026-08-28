@@ -17,7 +17,6 @@ REPRODUCTION_THRESHOLD = 115
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
-
 FOOD_COUNT = 75
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
@@ -83,6 +82,9 @@ class Organism:
             child = Organism()
             child.x=self.x + random.uniform(-20,20)
             child.y=(self.y + random.uniform(-20,20))
+
+            child.x=max(ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, child.x))
+            child.y=max(ORGANISM_RADIUS, min(HEIGHT - ORGANISM_RADIUS, child.y))
             self.energy -= REPRODUCTION_ENERGY_COST
             return child
 
