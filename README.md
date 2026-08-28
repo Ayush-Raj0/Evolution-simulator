@@ -6,7 +6,7 @@ Evolution Simulator is an independent project built in Python using Pygame. It s
 
 The project began from a question: **How do organisms evolve and adapt when exposed to environmental pressures and external stimuli?**
 
-The current version establishes the basic simulation mechanics required to explore that question. The longer-term goal is to introduce reproduction, inherited traits, mutation, and additional environmental pressures so that populations can evolve over multiple generations.
+The current version establishes the basic simulation mechanics required to explore that question. The longer-term goal is to introduce inherited traits, mutation, and additional environmental pressures so that populations can evolve over multiple generations.
 
 ## Current Features
 * Random organism movement
@@ -15,9 +15,9 @@ The current version establishes the basic simulation mechanics required to explo
 * Collision detection
 * Organism death based on energy level
 * Real-time graphical simulation using Pygame
+* Organism reproduction after reaching an minimum energy threshold
 
 ## Planned Features
-* Reproduction
 * Genetic inheritance
 * Trait mutation
 * Vision and sensing
