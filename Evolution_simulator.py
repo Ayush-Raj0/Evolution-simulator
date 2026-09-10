@@ -85,6 +85,8 @@ class Organism:
 
             child.x=max(ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, child.x))
             child.y=max(ORGANISM_RADIUS, min(HEIGHT - ORGANISM_RADIUS, child.y))
+            child.speed= self.speed
+
             self.energy -= REPRODUCTION_ENERGY_COST
             return child
 
@@ -120,7 +122,7 @@ class Food:
 organisms = [Organism() for _ in range(ORGANISM_COUNT)]
 foods = [Food() for _ in range(FOOD_COUNT)]
 
-running = True
+running = True 
 
 while running:
     dt = clock.tick(FPS)/1000
