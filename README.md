@@ -2,11 +2,11 @@
 To explore how complex traits may emerge under environmental and evolutionary pressures.
 
 ## Overview
-Evolution Simulator is an independent project built in Python using Pygame. It simulates organisms interacting with a simple environment in which they move, consume food, expend energy over time, and die if they are unable to sustain themselves.
+Evolution Simulator is an independent project built in Python using Pygame. It simulates organisms interacting with a simple environment in which they move, consume food, expend energy over time, reproduce after accumulating sufficient energy, and die if they are unable to sustain themselves.
 
 The project began from a question: **How do organisms evolve and adapt when exposed to environmental pressures and external stimuli?**
 
-The current version establishes the basic simulation mechanics required to explore that question. The longer-term goal is to introduce inherited traits, mutation, and additional environmental pressures so that populations can evolve over multiple generations.
+The current version establishes the basic survival and reproduction mechanics required to explore that question. Organisms can reproduce and pass their movement speed to their offspring. The longer-term goal is to introduce mutation, additional inherited traits, improved behaviour and environmental pressures so that populations can evolve over multiple generations.
 
 ## Current Features
 * Random organism movement
@@ -14,13 +14,17 @@ The current version establishes the basic simulation mechanics required to explo
 * Food consumption and energy recovery
 * Collision detection
 * Organism death based on energy level
+* Organism reproduction after reaching a minimum energy threshold
+* Reproduction energy cost
+* Offspring spawning near the parent
+* Basic inheritance of movement speed
 * Real-time graphical simulation using Pygame
-* Organism reproduction after reaching an minimum energy threshold
 
 ## Planned Features
-* Genetic inheritance
 * Trait mutation
+* Additional inherited traits
 * Vision and sensing
+* Improved movement and food-seeking behaviour
 * Different metabolic strategies
 * Population statistics
 * Multi-generation evolution
