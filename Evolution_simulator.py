@@ -6,19 +6,19 @@ pygame.init()
 WIDTH, HEIGHT = 900, 600
 FPS = 60
 
-ORGANISM_COUNT = 10
-ORGANISM_RADIUS = 8
+ORGANISM_COUNT = 5
+ORGANISM_RADIUS = 7
 ORGANISM_COLOR = (0, 0, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
-SENSING_RANGE = 100
+SENSING_RANGE = 70
 STARTING_ENERGY = 100
 ENERGY_LOSS_RATE = 5
 REPRODUCTION_THRESHOLD = 115
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
-FOOD_COUNT = 100
+FOOD_COUNT = 150
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
 
@@ -46,20 +46,18 @@ class Organism:
 
     def move(self, target_food):
         if target_food is not None:
-            dx = food_item.x - self.x
-            dy = food_item.y - self.y
-            distance = dx**2 + dy**2
-            step = min(self.speed, distance)
-            self.x += (dx/distance) * step
-            self.y += (dy/distance) * step
+            dx = target_food.x - self.x
+            dy = target_food.y - self.y
+            distance = (dx ** 2 + dy ** 2) ** 0.5
+
+            if distance > 0:
+                step = min(self.speed, distance)
+                self.x += (dx / distance) * step
+                self.y += (dy / distance) * step
 
         else:
             self.x += random.uniform(-self.speed, self.speed)
             self.y += random.uniform(-self.speed, self.speed)
-
-        self.x = min(ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, self.x))
-        self.y = min(ORGANISM_RADIUS, max(HEIGHT - ORGANISM_RADIUS, self.y))
-
 
         self.x = max(
             ORGANISM_RADIUS,
@@ -69,7 +67,6 @@ class Organism:
             ORGANISM_RADIUS,
             min(HEIGHT - ORGANISM_RADIUS, self.y)
         )
-
     def lose_energy(self, dt):
         self.energy -= ENERGY_LOSS_RATE * dt
 
@@ -86,7 +83,7 @@ class Organism:
         self.energy += food_item.energy_value
 
     def sense_food(self, foods):
-        nearest_food = none
+        nearest_food = None
         nearest_distance_sq = SENSING_RANGE**2
         for food_item in foods:
             dx = food_item.x - self.x
@@ -160,7 +157,8 @@ while running:
         food_item.draw()
 
     for organism in organisms[:]:
-        organism.move()
+        target_food = organism.sense_food(foods)
+        organism.move(target_food)
         organism.lose_energy(dt)
 
 
