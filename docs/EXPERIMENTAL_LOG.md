@@ -183,3 +183,13 @@ Added speed mutation during reproduction. Previously, offspring inherited the pa
 Tested the change by printing parent and offspring speeds during reproduction. Observed a parent speed of 1.55 produce an offspring speed of 1.48, and a parent speed of 1.45 produce an offspring speed of 1.54. Both variations were within the mutation range, and the offspring speeds remained within the allowed limits.
 
 Next step: Add food sensing so organisms can detect nearby food, then use this information to guide movement toward it.
+
+## 3 October 2026
+
+Added food sensing and seeking behaviour. Before, organisms moved randomly each frame and encountered food by chance. Organisms now search for the nearest food particle within `SENSING_RANGE`, currently set to 100 pixels. The `sense_food()` method compares squared distances and updates the selected target whenever a closer particle is found. It returns `None` if no food is within range.
+
+Updated `move()` to accept the detected food as a target. When a target exists, the organism calculates the direction toward it and moves along that direction using its individual speed. Movement is limited to the remaining distance to prevent overshooting, and a zero-distance check avoids division by zero. Existing boundary limits remain in place.
+
+Random movement is retained when no food is detected. Food seeking therefore replaces random movement while a target is available, allowing organisms to approach nearby food deliberately. Existing collision detection and food consumption handle eating when the organism reaches the particle.
+
+Next step: Test target selection, movement toward food, and the return to random movement when no food is within sensing range.

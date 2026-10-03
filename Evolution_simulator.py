@@ -44,15 +44,22 @@ class Organism:
         self.energy = STARTING_ENERGY
 
 
-    def move(self):
-        self.x += random.uniform(
-            -self.speed,
-            self.speed
-        )
-        self.y += random.uniform(
-            -self.speed,
-            self.speed
-        )
+    def move(self, target_food):
+        if target_food is not None:
+            dx = food_item.x - self.x
+            dy = food_item.y - self.y
+            distance = dx**2 + dy**2
+            step = min(self.speed, distance)
+            self.x += (dx/distance) * step
+            self.y += (dy/distance) * step
+
+        else:
+            self.x += random.uniform(-self.speed, self.speed)
+            self.y += random.uniform(-self.speed, self.speed)
+
+        self.x = min(ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, self.x))
+        self.y = min(ORGANISM_RADIUS, max(HEIGHT - ORGANISM_RADIUS, self.y))
+
 
         self.x = max(
             ORGANISM_RADIUS,
@@ -79,7 +86,7 @@ class Organism:
         self.energy += food_item.energy_value
 
     def sense_food(self, foods):
-        nearest_food = None
+        nearest_food = none
         nearest_distance_sq = SENSING_RANGE**2
         for food_item in foods:
             dx = food_item.x - self.x
