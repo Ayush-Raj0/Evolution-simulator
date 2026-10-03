@@ -19,7 +19,7 @@ The current version establishes the basic survival and reproduction mechanics re
 * Offspring spawning near the parent
 * Basic inheritance of movement speed
 * Real-time graphical simulation using Pygame
-* - Food sensing and seeking
+* Food sensing and seeking
 
 ## Planned Features
 * Trait mutation
