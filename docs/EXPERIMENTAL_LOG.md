@@ -174,3 +174,12 @@ Observed that natural reproduction remains uncommon because the current random m
 Added basic inheritance of movement speed from parent to offspring.
 
 Next step: introduce mutation to inherited speed while keeping speed within the defined minimum and maximum limits.
+
+
+## 2 October 2026
+
+Added speed mutation during reproduction. Previously, offspring inherited the parent’s speed exactly through `child.speed = self.speed`. Offspring now inherit the parent’s speed with a random variation between −0.2 and +0.2 using `random.uniform()`. The resulting speed is bounded by `MIN_SPEED` and `MAX_SPEED` using `max()` and `min()`.
+
+Tested the change by printing parent and offspring speeds during reproduction. Observed a parent speed of 1.55 produce an offspring speed of 1.48, and a parent speed of 1.45 produce an offspring speed of 1.54. Both variations were within the mutation range, and the offspring speeds remained within the allowed limits.
+
+Next step: Add food sensing so organisms can detect nearby food, then use this information to guide movement toward it.
