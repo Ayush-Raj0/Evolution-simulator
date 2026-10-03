@@ -11,6 +11,7 @@ ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
+SENSING_RANGE = 100
 STARTING_ENERGY = 100
 ENERGY_LOSS_RATE = 5
 REPRODUCTION_THRESHOLD = 115
@@ -76,6 +77,19 @@ class Organism:
     
     def eat(self, food_item):
         self.energy += food_item.energy_value
+
+    def sense_food(self, foods):
+        nearest_food = None
+        nearest_distance_sq = SENSING_RANGE**2
+        for food_item in foods:
+            dx = food_item.x - self.x
+            dy = food_item.y - self.y
+            distance_sq = dx**2 + dy**2
+
+            if distance_sq <= nearest_distance_sq:
+                nearest_food = food_item
+                nearest_distance_sq = distance_sq
+        return nearest_food
 
     def reproduce(self):
         if self.energy >= REPRODUCTION_THRESHOLD:
