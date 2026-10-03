@@ -6,18 +6,18 @@ pygame.init()
 WIDTH, HEIGHT = 900, 600
 FPS = 60
 
-ORGANISM_COUNT = 3
+ORGANISM_COUNT = 10
 ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
-STARTING_ENERGY = 105
+STARTING_ENERGY = 100
 ENERGY_LOSS_RATE = 5
 REPRODUCTION_THRESHOLD = 115
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
-FOOD_COUNT = 75
+FOOD_COUNT = 100
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
 
@@ -85,7 +85,10 @@ class Organism:
 
             child.x=max(ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, child.x))
             child.y=max(ORGANISM_RADIUS, min(HEIGHT - ORGANISM_RADIUS, child.y))
-            child.speed= self.speed
+
+            speed_change = random.uniform(-0.2, 0.2)
+            child.speed = self.speed + speed_change
+            child.speed = max(MIN_SPEED, min(MAX_SPEED, child.speed))
 
             self.energy -= REPRODUCTION_ENERGY_COST
             return child
