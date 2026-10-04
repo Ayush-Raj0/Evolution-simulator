@@ -45,6 +45,7 @@ class Organism:
         )
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
         self.energy = STARTING_ENERGY
+        self.generation = 0
 
     def move(self, target_food):
         if target_food is not None:
@@ -102,6 +103,7 @@ class Organism:
     def reproduce(self):
         if self.energy >= REPRODUCTION_THRESHOLD:
             child = Organism()
+            child.generation = self.generation + 1
             child.x=self.x + random.uniform(-20,20)
             child.y=(self.y + random.uniform(-20,20))
 
@@ -182,9 +184,11 @@ while running:
         organism.draw()
     population_count = len(organisms)
     total_speed = 0
+    highest_generation = 0
     for organism in organisms:
         total_speed += organism.speed
-
+        if organism.generation>highest_generation:
+            highest_generation = organism.generation
     if population_count>0:
         avg_speed = total_speed/population_count
     else:
@@ -198,9 +202,14 @@ while running:
         "Average Speed: " + str(round(avg_speed, 2)),
         True, (0,0,0)
     )
+    generation_text = stats_font.render(
+        "Highest gen alive: " + str(highest_generation),
+        True, (0,0,0)
+    )
 
     screen.blit(population_text, (10,10))
     screen.blit(speed_text, (10,40))
+    screen.blit(generation_text, (10,70))
     
     pygame.display.flip()
 pygame.quit()
