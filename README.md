@@ -20,13 +20,13 @@ The current version establishes the basic survival and reproduction mechanics re
 * Basic inheritance of movement speed
 * Real-time graphical simulation using Pygame
 * Food sensing and seeking
+* Population statistics
 
 ## Planned Features
 * Trait mutation
 * Additional inherited traits
-* Vision and sensing
+* Vision
 * Different metabolic strategies
-* Population statistics
 * Multi-generation evolution
 
 ## Built With
