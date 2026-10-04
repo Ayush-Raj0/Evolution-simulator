@@ -7,14 +7,16 @@ WIDTH, HEIGHT = 900, 600
 FPS = 60
 
 ORGANISM_COUNT = 5
-ORGANISM_RADIUS = 7
+ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
-SENSING_RANGE = 70
+SENSING_RANGE = 85
+
 STARTING_ENERGY = 100
-ENERGY_LOSS_RATE = 5
-REPRODUCTION_THRESHOLD = 115
+ENERGY_LOSS_RATE = 10
+SPEED_ENERGY_COST = 1
+REPRODUCTION_THRESHOLD = 150
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
@@ -25,7 +27,7 @@ FOOD_COLOR = (0, 180, 0)
 BACKGROUND_COLOR = (255, 255, 255)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator - Version 3")
+pygame.display.set_caption("Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
 
@@ -67,8 +69,10 @@ class Organism:
             ORGANISM_RADIUS,
             min(HEIGHT - ORGANISM_RADIUS, self.y)
         )
+        
     def lose_energy(self, dt):
-        self.energy -= ENERGY_LOSS_RATE * dt
+        energy_loss_rate = ENERGY_LOSS_RATE + self.speed * SPEED_ENERGY_COST
+        self.energy -= energy_loss_rate * dt
 
     def collides_with(self, food_item):
         dx = self.x - food_item.x
