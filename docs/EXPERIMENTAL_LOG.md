@@ -193,3 +193,13 @@ Updated `move()` to accept the detected food as a target. When a target exists, 
 Random movement is retained when no food is detected. Food seeking therefore replaces random movement while a target is available, allowing organisms to approach nearby food deliberately. Existing collision detection and food consumption handle eating when the organism reaches the particle.
 
 Next step: Test target selection, movement toward food, and the return to random movement when no food is within sensing range.
+
+## 4 October 2026
+
+Added speed-dependent energy loss to introduce a metabolic trade-off between movement speed and survival. Previously, all organisms lost energy at the same constant rate. The `lose_energy()` method now calculates each organism’s energy loss rate by adding `self.speed * SPEED_ENERGY_COST` to the base `ENERGY_LOSS_RATE`. This rate is multiplied by `dt`, keeping energy depletion based on elapsed time.
+
+Faster organisms can reach food more quickly, but now spend more energy per second. This gives inherited speed variation a consequence for survival: greater speed offers an advantage in food collection while also increasing the energy needed to stay alive.
+
+During testing, I temporarily increased the reproduction threshold to reduce population growth and adjusted food energy to make individual survival easier to observe. Tried different speed-cost values, including `SPEED_ENERGY_COST = 2`. Some organisms disappeared sooner than nearby organisms whose food availability changed at roughly the same time. This observation was consistent with the intended trade-off, although individual feeding histories also affect survival.
+
+Next step: Add an on-screen display showing the living population count and average organism speed to help track changes during the simulation.

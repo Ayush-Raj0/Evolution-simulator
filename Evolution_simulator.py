@@ -30,6 +30,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
+stats_font = pygame.font.Font(None, 28)
+
 
 
 class Organism:
@@ -180,7 +182,17 @@ while running:
             organisms.append(child)
        
         organism.draw()
+    population_count = len(organisms)
+    total_speed = 0
+    for organism in organisms:
+        total_speed += organism.speed
+
+    if population_count>0:
+        avg_speed = total_speed/population_count
+    else:
+        avg_speed = 0
     
+
     pygame.display.flip()
 
 pygame.quit()
