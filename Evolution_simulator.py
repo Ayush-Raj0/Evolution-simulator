@@ -30,7 +30,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
-stats_font = pygame.font.Font(None, 28)
+stats_font = pygame.font.SysFont("Arial", 28)
 
 
 
@@ -191,8 +191,18 @@ while running:
         avg_speed = total_speed/population_count
     else:
         avg_speed = 0
+
+    population_text = stats_font.render(
+        "Population: " + str(population_count),
+        True, (0,0,0)
+    )
+    speed_text = stats_font.render(
+        "Average Speed: " + str(round(avg_speed, 2)),
+        True, (0,0,0)
+    )
+
+    screen.blit(population_text, (10,10))
+    screen.blit(speed_text, (10,40))
     
-
     pygame.display.flip()
-
 pygame.quit()
