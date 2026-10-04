@@ -27,11 +27,10 @@ FOOD_COLOR = (0, 180, 0)
 BACKGROUND_COLOR = (255, 255, 255)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Evolution Simulator - Version 4")
+pygame.display.set_caption("The Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
-stats_font = pygame.font.SysFont("Arial", 28)
-
+stats_font = pygame.font.Font(None, 28)
 
 
 class Organism:
@@ -46,7 +45,6 @@ class Organism:
         )
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
         self.energy = STARTING_ENERGY
-
 
     def move(self, target_food):
         if target_food is not None:
