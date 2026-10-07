@@ -200,6 +200,18 @@ Added speed-dependent energy loss to introduce a metabolic trade-off between mov
 
 Faster organisms can reach food more quickly, but now spend more energy per second. This gives inherited speed variation a consequence for survival: greater speed offers an advantage in food collection while also increasing the energy needed to stay alive.
 
-During testing, I temporarily increased the reproduction threshold to reduce population growth and adjusted food energy to make individual survival easier to observe. Tried different speed-cost values, including `SPEED_ENERGY_COST = 2`. Some organisms disappeared sooner than nearby organisms whose food availability changed at roughly the same time. This observation was consistent with the intended trade-off, although individual feeding histories also affect survival.
+- During testing, I temporarily increased the reproduction threshold to reduce population growth and adjusted food energy to make individual survival easier to observe. Tried different speed-cost values, including `SPEED_ENERGY_COST = 2`. Some organisms disappeared sooner than nearby organisms whose food availability changed at roughly the same time. This observation was consistent with the intended trade-off, although individual feeding histories also affect survival.
 
-Next step: Add an on-screen display showing the living population count and average organism speed to help track changes during the simulation.
+- Also added on-screen display stats showing the live population count and the average organism     speed.
+Both values are recalculated for each frame after organisms have been updated, so they reflect births and deaths of any organism which happen in each frame. 
+Added a check for an empty population, to prevent division by zero when calculating the average.
+
+Used Pygame's font and rendering methods and `screen.blit()` to display the statistics in the top-left corner, with average speed rounded off to 2 decimal points. 
+I confirmed that the display is updated during the simulation, and in during my test simulation, 
+the speed fluctuated between 2.35 and 2.45 in the run.
+
+- Added generation tracking to distinguish the starting organisms from their descendants. Each organism now has a `generation` attribute, initialized to 0. During reproduction, the child receives its parent’s generation number plus 1. The parent’s generation remains unchanged, since the number represents ancestry rather than the number of offspring produced.
+
+Extended the on-screen statistics to show the highest generation currently alive. This value is recalculated each frame while summing organism speeds, using the same loop through the living population. Unlike the highest generation ever reached, this value can decrease if all organisms belonging to the highest living generation die. When the population becomes extinct, the current display returns to 0; handling that case more clearly remains a small improvement.
+
+Next step: Record population size and speed statistics over time so that changes across the simulation can be examined beyond the current on-screen values.
