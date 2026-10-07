@@ -32,7 +32,7 @@ pressures.
 - Run experiments with different food availability and energy costs.
 - Analyse how survival and reproduction affect the distribution of speeds.
 
-## Later Extensions
+## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order.
 Food replenishment will be addressed after the core roadmap above.
 
@@ -42,3 +42,10 @@ Food replenishment will be addressed after the core roadmap above.
 - Add graphs and experiment controls.
 - Explore environmental zones and changing conditions.
 - Explore communication, cooperation, resource storage, and specialised behaviour.
+
+- Add inherited sensing range with mutation and a sensing energy cost.
+- Add persistent wandering direction.
+- Use random seeds for reproducible experiments.
+- Add speed-distribution graphs.
+- Add food patches and extend environmental zones.
+- Track family lines and their descendants.
