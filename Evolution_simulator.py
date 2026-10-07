@@ -104,6 +104,7 @@ class Organism:
         if self.energy >= REPRODUCTION_THRESHOLD:
             child = Organism()
             child.generation = self.generation + 1
+            
             child.x=self.x + random.uniform(-20,20)
             child.y=(self.y + random.uniform(-20,20))
 
