@@ -202,11 +202,16 @@ while running:
         "Average Speed: " + str(round(avg_speed, 2)),
         True, (0,0,0)
     )
+
+    if population_count > 0:
+        generation_label = str(highest_generation)
+    else:
+        generation_label = "None"
+
     generation_text = stats_font.render(
-        "Highest gen alive: " + str(highest_generation),
+        "Highest gen alive: " + generation_label,
         True, (0,0,0)
     )
-
     screen.blit(population_text, (10,10))
     screen.blit(speed_text, (10,40))
     screen.blit(generation_text, (10,70))
