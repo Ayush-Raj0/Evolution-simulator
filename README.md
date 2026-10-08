@@ -35,7 +35,13 @@ The current version establishes the basic survival and reproduction mechanics re
 * Pygame
 
 ## Development
-The project was developed independently using Visual Studio Code. A public roadmap and development log are included in the repository to document the project's progression and planned future additions.
+
+The project was developed independently using Visual Studio Code. A public roadmap, development log, and experiment plan are included in the repository to document its progression and future work.
+
+- [Roadmap](ROADMAP.md): Completed features and future development plans.
+- [Experiment Plan](EXPERIMENTS.md): Questions, settings, and data planned for simulation experiments.
+- [Development Log](EXPERIMENTAL_LOG.md): Implementation notes, observations, and bug fixes.
+
 
 ## How to Run
 To run the Evolution Simulator on your computer:
