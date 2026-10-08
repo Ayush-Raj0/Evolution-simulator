@@ -1,5 +1,6 @@
 import random
 import pygame
+import csv
 
 pygame.init()
 
@@ -150,10 +151,15 @@ class Food:
 organisms = [Organism() for _ in range(ORGANISM_COUNT)]
 foods = [Food() for _ in range(FOOD_COUNT)]
 
-running = True 
+running = True
+elapsed_time = 0
+recording_timer = 0
+stats_history = []
 
 while running:
     dt = clock.tick(FPS)/1000
+    elapsed_time += dt
+    recording_timer += dt
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -195,6 +201,15 @@ while running:
     else:
         avg_speed = 0
 
+    if recording_timer>=1:
+        stats_history.append([
+            elapsed_time, 
+            population_count, 
+            avg_speed
+        ])
+        recording_timer %= 1
+
+
     population_text = stats_font.render(
         "Population: " + str(population_count),
         True, (0,0,0)
@@ -219,3 +234,14 @@ while running:
     
     pygame.display.flip()
 pygame.quit()
+
+with open("Simulation_stats.csv", 'w', newline = "") as stats_file:
+    w = csv.writer(stats_file)
+
+    w.writerow([
+        "Elapsed_time", 
+        "population_count",
+        "avg_speed"
+    ])
+
+    w.writerows(stats_history)
