@@ -215,3 +215,17 @@ the speed fluctuated between 2.35 and 2.45 in the run.
 Extended the on-screen statistics to show the highest generation currently alive. This value is recalculated each frame while summing organism speeds, using the same loop through the living population. Unlike the highest generation ever reached, this value can decrease if all organisms belonging to the highest living generation die. When the population becomes extinct, the current display returns to 0; handling that case more clearly remains a small improvement.
 
 Next step: Record population size and speed statistics over time so that changes across the simulation can be examined beyond the current on-screen values.
+
+## 8 October 2026
+
+Added recording of population count and average organism speed over time. The simulation now accumulates elapsed time using `dt` and stores a sample approximately once per second. A separate recording timer retains the fractional time remaining after each interval. When the simulation window is closed normally, the collected samples are written to `simulation_stats.csv`, along with column headings. Each run currently replaces the previous CSV file.
+
+Checked the exported data and confirmed that samples were recorded roughly one second apart. In one test, the population increased from 14 to 17 to 19 across the first three samples, while average speed changed slightly.
+
+Created a separate `plot_stats.py` script that reads the CSV and uses Matplotlib to plot population versus elapsed time and average speed versus elapsed time. Both graphs open in separate windows and are also saved as PNG images. Resolved an initial import error by installing Matplotlib into the project’s virtual environment. Confirmed that both graph windows and image files were generated successfully.
+
+Added the generated CSV and PNG filenames to `.gitignore` so routine simulation outputs remain local. Committed and pushed the statistics-recording code, plotting script, and ignore rules.
+
+Also added `EXPERIMENTS.md` to outline the experiment question, settings, data collection, planned graphs, and method. Updated the README’s feature descriptions and added links to the roadmap, experiment plan, and development log.
+
+Next step: Run repeated experiments with different food availability and speed energy costs, recording the settings and comparing the resulting population and speed trends.
