@@ -58,4 +58,4 @@ Food replenishment will be addressed after the core roadmap above.
 - Measure performance as organism and food counts increase.
 - Add spatial partitioning using a grid of cells.
 - Use nearby grid cells for food sensing and collision checks.
-- Compare performance and correctness with the original food-search approach.
+- Compare performance and correctness with the original food-search approach
