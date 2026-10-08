@@ -49,3 +49,13 @@ Food replenishment will be addressed after the core roadmap above.
 - Add speed-distribution graphs.
 - Add food patches and extend environmental zones.
 - Track family lines and their descendants.
+
+## Advanced Future Features
+
+- Add organism decision-making using small neural networks.
+- Evolve neural-network weights through inheritance and genetic mutation.
+- Compare evolved behaviour with the existing food-seeking rules.
+- Measure performance as organism and food counts increase.
+- Add spatial partitioning using a grid of cells.
+- Use nearby grid cells for food sensing and collision checks.
+- Compare performance and correctness with the original food-search approach.
