@@ -24,9 +24,11 @@ REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
 FOOD_COUNT = 150
+MAX_FOOD_COUNT = 160
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
 FOOD_ENERGY_VALUE = 40
+FOOD_SPAWN_INTERVAL = 1.0
 
 BACKGROUND_COLOR = (255, 255, 255)
 
@@ -157,18 +159,26 @@ foods = [Food() for _ in range(FOOD_COUNT)]
 running = True
 elapsed_time = 0
 recording_timer = 0
+food_spawn_timer = 0
 stats_history = []
 
 while running:
     dt = clock.tick(FPS)/1000
     elapsed_time += dt
     recording_timer += dt
+    food_spawn_timer += dt
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
     screen.fill(BACKGROUND_COLOR)
 
+    while food_spawn_timer >= FOOD_SPAWN_INTERVAL:
+        food_spawn_timer -= FOOD_SPAWN_INTERVAL
+
+        if len(foods) < MAX_FOOD_COUNT:
+            foods.append(Food())
+            
     for food_item in foods:
         food_item.draw()
 
@@ -181,7 +191,7 @@ while running:
         if organism.energy <= 0:
             organisms.remove(organism)
             continue
-
+        
         for food_item in foods[:]:
             if organism.collides_with(food_item):
                 organism.eat(food_item)
