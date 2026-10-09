@@ -5,7 +5,10 @@ times = []
 populations = []
 average_speeds = []
 
-with open("simulation_stats.csv", "r", newline ="") as stats_file:
+stats_filename = input("Enter the CSV filename to plot = ").strip()
+run_name = stats_filename.removesuffix(".csv")
+
+with open(stats_filename, "r", newline ="") as stats_file:
     reader = csv.reader(stats_file)
     next(reader)
 
@@ -19,14 +22,13 @@ plot.plot(times, populations)
 plot.xlabel("Elapsed time(seconds)")
 plot.ylabel("Living populations")
 plot.title("Population over time")
-plot.savefig("population_over_time.png", dpi=150, bbox_inches="tight")
+plot.savefig(run_name + "population_over_time.png", dpi=150, bbox_inches="tight")
 
 plot.figure()
 plot.plot(times, average_speeds)
 plot.xlabel("Elapsed time(seconds)")
 plot.ylabel("Average speed(pixels per frame)")
 plot.title("Average Speed over Time")
-plot.savefig("Average_speed_over_time.png", dpi=150, bbox_inches="tight")
-
+plot.savefig(run_name + "Average_speed_over_time.png", dpi=150, bbox_inches="tight")
 
 plot.show()

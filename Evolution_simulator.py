@@ -1,6 +1,8 @@
 import random
 import pygame
 import csv
+from datetime import datetime
+
 
 pygame.init()
 
@@ -235,13 +237,16 @@ while running:
     pygame.display.flip()
 pygame.quit()
 
-with open("Simulation_stats.csv", 'w', newline = "") as stats_file:
-    w = csv.writer(stats_file)
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+stats_filename = "Simulation_stats_" + timestamp + ".csv"
 
-    w.writerow([
+with open(stats_filename, "w", newline="") as stats_file:
+    writer = csv.writer(stats_file)
+
+    writer.writerow([
         "Elapsed_time", 
         "population_count",
         "avg_speed"
     ])
 
-    w.writerows(stats_history)
+    writer.writerows(stats_history)
