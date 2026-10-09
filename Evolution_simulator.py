@@ -26,6 +26,7 @@ REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 FOOD_COUNT = 150
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
+FOOD_ENERGY_VALUE = 40
 
 BACKGROUND_COLOR = (255, 255, 255)
 
@@ -140,7 +141,7 @@ class Food:
             FOOD_RADIUS,
             HEIGHT - FOOD_RADIUS
         )
-        self.energy_value = 40
+        self.energy_value = FOOD_ENERGY_VALUE
 
     def draw(self):
         pygame.draw.circle(
@@ -250,3 +251,23 @@ with open(stats_filename, "w", newline="") as stats_file:
     ])
 
     writer.writerows(stats_history)
+
+settings_filename = "Simulation_settings_" + timestamp + ".csv"
+
+with open(settings_filename, "w", newline="") as settings_file:
+    writer = csv.writer(settings_file)
+    writer.writerow(["settings", "value"])
+
+    writer.writerows([
+        ["ORGANISM_COUNT", ORGANISM_COUNT],
+        ["MIN_SPEED", MIN_SPEED],
+        ["MAX_SPEED", MAX_SPEED],
+        ["SENSING_RANGE", SENSING_RANGE],
+        ["STARTING_ENERGY", STARTING_ENERGY],
+        ["ENERGY_LOSS_RATE", ENERGY_LOSS_RATE],
+        ["SPEED_ENERGY_COST", SPEED_ENERGY_COST],
+        ["REPRODUCTION_THRESHOLD", REPRODUCTION_THRESHOLD],
+        ["REPRODUCTION_ENERGY_COST", REPRODUCTION_ENERGY_COST],
+        ["FOOD_COUNT", FOOD_COUNT],
+        ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE]
+    ]),
