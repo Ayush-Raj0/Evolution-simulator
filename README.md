@@ -21,7 +21,7 @@ The current version establishes the basic survival and reproduction mechanics re
 * Real-time graphical simulation using Pygame
 * Food sensing and seeking
 * Population statistics
-
+* Timed food replenishment with a maximum food count
 ## Planned Features
 * Trait mutation
 * Additional inherited traits
