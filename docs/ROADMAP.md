@@ -18,30 +18,29 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Move towards sensed food and wander when none is detected.
 - [x] Add speed-dependent energy loss as a metabolic trade-off.
 - [x] Display the living population count and average speed.
+- [x] Gradually replenish food during the simulation with a maximum food count.
+- [x] Give each organism a generation number, starting at generation 0.
+- [x] Give each child its parent's generation number plus 1.
+- [x] Display the highest generation currently alive.
+- [x] Record population size and average speed over time.
+- [x] Plot population size and average speed over time from exported CSV data.experiment controls.
 
 ## Next: Multi-generation Evolution
 Reproduction already produces descendants. The next stage is to track
 generations and study how inherited traits change under environmental
 pressures.
 
-- Give each organism a generation number.
-- Set starting organisms to generation 0.
-- Give each child its parent's generation number plus 1.
-- Display generation information alongside the existing statistics.
-- Record population size and speed statistics over time.
 - Run experiments with different food availability and energy costs.
 - Analyse how survival and reproduction affect the distribution of speeds.
 
 ## Future Ideas: After the Current Roadmap
-These are longer-term ideas rather than a fixed implementation order.
-Food replenishment will be addressed after the core roadmap above.
+These are longer-term ideas rather than a fixed implementation order -
 
-- Gradually replenish food during the simulation.
 - Explore additional inherited traits, such as size or sensing range.
 - Explore different metabolic strategies.
-- Add graphs and experiment controls.
 - Explore environmental zones and changing conditions.
 - Explore communication, cooperation, resource storage, and specialised behaviour.
+- Add Experiment controls.
 
 - Add inherited sensing range with mutation and a sensing energy cost.
 - Add persistent wandering direction.
