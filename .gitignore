@@ -224,4 +224,7 @@ private_notes/
 Simulation_stats.csv
 population_over_time.png
 average_speed_over_time.png
+simulation_stats_*.csv
 
+simulation_stats_*_population.png
+simulation_stats_*_average_speed.png
