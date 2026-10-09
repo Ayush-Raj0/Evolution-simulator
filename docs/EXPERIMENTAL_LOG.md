@@ -229,3 +229,15 @@ Added the generated CSV and PNG filenames to `.gitignore` so routine simulation 
 Also added `EXPERIMENTS.md` to outline the experiment question, settings, data collection, planned graphs, and method. Updated the README’s feature descriptions and added links to the roadmap, experiment plan, and development log.
 
 Next step: Run repeated experiments with different food availability and speed energy costs, recording the settings and comparing the resulting population and speed trends.
+
+## 9 October 2026 — Preserving Simulation Runs and Food Replenishment
+
+Added timestamped filenames to the simulation's CSV exports so that new runs no longer overwrite previous results. Updated the plotting script to accept a chosen CSV filename and save its population and average-speed graphs with filenames corresponding to that run.
+
+Added a separate settings CSV for each run, using the same timestamp as its statistics file. This records the simulation parameters alongside the results, making it easier to identify the conditions used when reviewing graphs later. Food energy is now defined through the FOOD_ENERGY_VALUE constant.
+
+Implemented timed food replenishment. New food particles spawn at random positions at a configurable interval, provided the current food count is below MAX_FOOD_COUNT. The timer preserves leftover elapsed time between intervals. Testing confirmed that food continues to spawn and stops accumulating at the configured limit of 150 particles. Both replenishment settings are included in the settings export.
+
+Updated the README and roadmap to reflect the completed features, while keeping experiment controls and further evolutionary analysis pending.
+
+Next step: Extend the simulator with additional inherited traits and their associated trade-offs.
