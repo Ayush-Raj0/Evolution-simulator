@@ -18,6 +18,7 @@ SENSING_RANGE = 85
 MIN_SENSING_RANGE = 30
 MAX_SENSING_RANGE = 150
 SENSING_MUTATION_AMOUNT = 5
+WANDER_DIRECTION_INTERVAL = 1.0
 
 STARTING_ENERGY = 100
 ENERGY_LOSS_RATE = 10
@@ -56,8 +57,11 @@ class Organism:
         self.sensing_range = SENSING_RANGE
         self.energy = STARTING_ENERGY
         self.generation = 0
+        self.wander_dx = random.uniform(-1, 1)
+        self.wander_dy = random.uniform(-1, 1)
+        self.wander_timer = 0
 
-    def move(self, target_food):
+    def move(self, target_food, dt):
         if target_food is not None:
             dx = target_food.x - self.x
             dy = target_food.y - self.y
@@ -69,18 +73,19 @@ class Organism:
                 self.y += (dy / distance) * step
 
         else:
-            self.x += random.uniform(-self.speed, self.speed)
-            self.y += random.uniform(-self.speed, self.speed)
+            self.wander_timer += dt
+            if self.wander_timer >= WANDER_DIRECTION_INTERVAL:
+                self.wander_timer %= WANDER_DIRECTION_INTERVAL
+                self.wander_dx = random.uniform(-1, 1)
+                self.wander_dy = random.uniform(-1, 1)
 
-        self.x = max(
-            ORGANISM_RADIUS,
-            min(WIDTH - ORGANISM_RADIUS, self.x)
-        )
-        self.y = max(
-            ORGANISM_RADIUS,
-            min(HEIGHT - ORGANISM_RADIUS, self.y)
-        )
-        
+            direction_length = (
+                (self.wander_dx ** 2 + self.wander_dy ** 2) ** 0.5
+            )
+
+            if direction_length>0:
+                self.x += (self.wander_dx/direction_length) * self.speed
+                self.y += (self.wander_dy/direction_length) * self.speed
     def lose_energy(self, dt):
         energy_loss_rate = (
             ENERGY_LOSS_RATE +
@@ -199,7 +204,7 @@ while running:
 
     for organism in organisms[:]:
         target_food = organism.sense_food(foods)
-        organism.move(target_food)
+        organism.move(target_food, dt)
         organism.lose_energy(dt)
 
 
