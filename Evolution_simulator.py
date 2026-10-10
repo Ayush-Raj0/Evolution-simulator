@@ -266,7 +266,7 @@ while running:
         True, (0,0,0)
     )
     sensing_text = stats_font.render(
-        "Average sensing range:" + str(round(avg_sensing_range, 2)) + "px",
+        "Average sensing range: " + str(round(avg_sensing_range, 2)) + "px",
         True, (0,0,0)
     )
     screen.blit(population_text, (10,10))
@@ -311,7 +311,7 @@ with open(settings_filename, "w", newline="") as settings_file:
         ["FOOD_COUNT", FOOD_COUNT],
         ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE],
         ["FOOD_SPAWN_INTERVAL", FOOD_SPAWN_INTERVAL],
-        ["MAX_FOOD_COUNT", MAX_FOOD_COUNT]
+        ["MAX_FOOD_COUNT", MAX_FOOD_COUNT],
         ["MIN_SENSING_RANGE", MIN_SENSING_RANGE],
         ["MAX_SENSING_RANGE", MAX_SENSING_RANGE],
         ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
