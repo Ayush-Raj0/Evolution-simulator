@@ -24,7 +24,7 @@ ENERGY_LOSS_RATE = 10
 SPEED_ENERGY_COST = 1
 REPRODUCTION_THRESHOLD = 150
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
-
+SENSING_ENERGY_COST = 0.02
 
 FOOD_COUNT = 150
 MAX_FOOD_COUNT = 150
@@ -82,7 +82,11 @@ class Organism:
         )
         
     def lose_energy(self, dt):
-        energy_loss_rate = ENERGY_LOSS_RATE + self.speed * SPEED_ENERGY_COST
+        energy_loss_rate = (
+            ENERGY_LOSS_RATE +
+            self.speed * SPEED_ENERGY_COST +
+            self.sensing_range * SENSING_ENERGY_COST
+        )
         self.energy -= energy_loss_rate * dt
 
     def collides_with(self, food_item):
@@ -213,17 +217,25 @@ while running:
             organisms.append(child)
        
         organism.draw()
+
     population_count = len(organisms)
     total_speed = 0
+    total_sensing_range = 0
     highest_generation = 0
+
     for organism in organisms:
         total_speed += organism.speed
+        total_sensing_range += organism.sensing_range
+
         if organism.generation>highest_generation:
             highest_generation = organism.generation
+
     if population_count>0:
         avg_speed = total_speed/population_count
+        avg_sensing_range = total_sensing_range/population_count
     else:
         avg_speed = 0
+        avg_sensing_range = 0
 
     if recording_timer>=1:
         stats_history.append([
@@ -252,9 +264,14 @@ while running:
         "Highest gen alive: " + generation_label,
         True, (0,0,0)
     )
+    sensing_text = stats_font.render(
+        "Average sensing range:" + str(round(avg_sensing_range, 2)) + "px",
+        True, (0,0,0)
+    )
     screen.blit(population_text, (10,10))
     screen.blit(speed_text, (10,40))
     screen.blit(generation_text, (10,70))
+    screen.blit(sensing_text, (10,100))
     
     pygame.display.flip()
 pygame.quit()
