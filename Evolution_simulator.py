@@ -241,7 +241,8 @@ while running:
         stats_history.append([
             elapsed_time, 
             population_count, 
-            avg_speed
+            avg_speed,
+            avg_sensing_range
         ])
         recording_timer %= 1
 
@@ -285,7 +286,8 @@ with open(stats_filename, "w", newline="") as stats_file:
     writer.writerow([
         "Elapsed_time", 
         "population_count",
-        "avg_speed"
+        "avg_speed",
+        "avg_sensing_range"
     ])
 
     writer.writerows(stats_history)
@@ -310,4 +312,8 @@ with open(settings_filename, "w", newline="") as settings_file:
         ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE],
         ["FOOD_SPAWN_INTERVAL", FOOD_SPAWN_INTERVAL],
         ["MAX_FOOD_COUNT", MAX_FOOD_COUNT]
+        ["MIN_SENSING_RANGE", MIN_SENSING_RANGE],
+        ["MAX_SENSING_RANGE", MAX_SENSING_RANGE],
+        ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
+        ["SENSING_ENERGY_COST", SENSING_ENERGY_COST]
     ])
