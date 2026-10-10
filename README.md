@@ -22,6 +22,10 @@ The current version establishes the basic survival and reproduction mechanics re
 * Food sensing and seeking
 * Population statistics
 * Timed food replenishment with a maximum food count
+* Inherited sensing range with bounded mutation
+* Sensing-dependent energy loss
+* Average sensing range display, CSV recording, and graph
+* Persistent wandering with timed direction changes
 ## Planned Features
 * Trait mutation
 * Additional inherited traits

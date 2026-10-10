@@ -1,5 +1,5 @@
 # Evolution Simulator Roadmap
-Build the simulator one feature at a time, starting with basic survival
+Building the simulator one feature at a time, starting with basic survival
 behaviour and progressing towards observable evolution across generations.
 
 ## Completed
@@ -24,6 +24,9 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Display the highest generation currently alive.
 - [x] Record population size and average speed over time.
 - [x] Plot population size and average speed over time from exported CSV data.experiment controls.
+- [x] Explore additional inherited traits, such as size or sensing range.
+- [x] Add inherited sensing range with mutation and a sensing energy cost.
+- [x] Add persistent wandering direction.
 
 ## Next: Multi-generation Evolution
 Reproduction already produces descendants. The next stage is to track
@@ -36,14 +39,11 @@ pressures.
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -
 
-- Explore additional inherited traits, such as size or sensing range.
 - Explore different metabolic strategies.
 - Explore environmental zones and changing conditions.
 - Explore communication, cooperation, resource storage, and specialised behaviour.
 - Add Experiment controls.
 
-- Add inherited sensing range with mutation and a sensing energy cost.
-- Add persistent wandering direction.
 - Use random seeds for reproducible experiments.
 - Add speed-distribution graphs.
 - Add food patches and extend environmental zones.
