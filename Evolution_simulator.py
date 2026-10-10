@@ -15,6 +15,9 @@ ORGANISM_COLOR = (0, 0, 255)
 MIN_SPEED = 1
 MAX_SPEED = 3
 SENSING_RANGE = 85
+MIN_SENSING_RANGE = 30
+MAX_SENSING_RANGE = 150
+SENSING_MUTATION_AMOUNT = 5
 
 STARTING_ENERGY = 100
 ENERGY_LOSS_RATE = 10
@@ -24,7 +27,7 @@ REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 
 
 FOOD_COUNT = 150
-MAX_FOOD_COUNT = 160
+MAX_FOOD_COUNT = 150
 FOOD_RADIUS = 5
 FOOD_COLOR = (0, 180, 0)
 FOOD_ENERGY_VALUE = 40
@@ -50,6 +53,7 @@ class Organism:
             HEIGHT - ORGANISM_RADIUS
         )
         self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
+        self.sensing_range = SENSING_RANGE
         self.energy = STARTING_ENERGY
         self.generation = 0
 
@@ -95,7 +99,7 @@ class Organism:
 
     def sense_food(self, foods):
         nearest_food = None
-        nearest_distance_sq = SENSING_RANGE**2
+        nearest_distance_sq = self.sensing_range**2
         for food_item in foods:
             dx = food_item.x - self.x
             dy = food_item.y - self.y
@@ -120,6 +124,13 @@ class Organism:
             speed_change = random.uniform(-0.2, 0.2)
             child.speed = self.speed + speed_change
             child.speed = max(MIN_SPEED, min(MAX_SPEED, child.speed))
+
+            sensing_change = random.uniform(
+                -SENSING_MUTATION_AMOUNT, 
+                SENSING_MUTATION_AMOUNT
+            )
+            child.sensing_range = self.sensing_range + sensing_change
+            child.sensing_range = max(MIN_SENSING_RANGE, min(MAX_SENSING_RANGE, child.sensing_range))
 
             self.energy -= REPRODUCTION_ENERGY_COST
             return child
@@ -178,7 +189,7 @@ while running:
 
         if len(foods) < MAX_FOOD_COUNT:
             foods.append(Food())
-            
+
     for food_item in foods:
         food_item.draw()
 
@@ -279,5 +290,7 @@ with open(settings_filename, "w", newline="") as settings_file:
         ["REPRODUCTION_THRESHOLD", REPRODUCTION_THRESHOLD],
         ["REPRODUCTION_ENERGY_COST", REPRODUCTION_ENERGY_COST],
         ["FOOD_COUNT", FOOD_COUNT],
-        ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE]
-    ]),
+        ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE],
+        ["FOOD_SPAWN_INTERVAL", FOOD_SPAWN_INTERVAL],
+        ["MAX_FOOD_COUNT", MAX_FOOD_COUNT]
+    ])
