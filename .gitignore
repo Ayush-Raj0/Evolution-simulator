@@ -230,3 +230,5 @@ simulation_stats_*_population.png
 simulation_stats_*_average_speed.png
 
 simulation_settings_*.csv
+
+Simulation_stats_*_average_sensing_range.png
