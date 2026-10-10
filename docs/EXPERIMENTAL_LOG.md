@@ -241,3 +241,25 @@ Implemented timed food replenishment. New food particles spawn at random positio
 Updated the README and roadmap to reflect the completed features, while keeping experiment controls and further evolutionary analysis pending.
 
 Next step: Extend the simulator with additional inherited traits and their associated trade-offs.
+
+## 10 October 2026
+
+Added sensing range as a second inherited trait alongside movement speed. Starting organisms retain a sensing range of 85 pixels, while offspring inherit their parent's range with a random mutation between -5 and +5 pixels. The resulting range is bounded between 30 and 150 pixels.
+
+Introduced sensing-dependent energy loss, creating a trade-off between detecting food farther away and spending more energy to maintain that ability. Added average sensing range to the on-screen statistics, recorded it in the statistics CSV, and included the new sensing parameters in each run's settings export.
+
+Extended the plotting script to generate an average sensing range graph alongside the existing population and average-speed graphs. Updated the ignore rules for generated images and improved the spacing of the on-screen sensing label.
+
+In one observed run, average sensing range decreased from 85 to approximately 83.4–83.5 pixels before extinction. This observation alone does not establish a consistent evolutionary trend.
+
+Next step: Improve compatibility with earlier statistics files and introduce persistent wandering.
+
+## 11 October 2026
+
+Updated the plotting script to support earlier three-column statistics CSVs. Files without sensing data produce population and average-speed graphs, while newer four-column files also produce the sensing-range graph. Checked the older format using a temporary three-column CSV.
+
+Replaced random movement chosen every frame with persistent wandering when no food is sensed. Each organism maintains its own direction and changes it approximately once per second of wandering. Direction normalisation keeps movement consistent with the organism's speed, while the existing boundary limits keep it inside the window.
+
+Observed organisms maintaining a direction and then changing it at the expected interval, both after food became scarce and with reduced starting food and delayed replenishment. Added the wandering interval to the settings export and updated the README and roadmap.
+
+Next step: Continue developing inherited traits and environmental trade-offs.
