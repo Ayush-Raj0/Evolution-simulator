@@ -181,15 +181,20 @@ elapsed_time = 0
 recording_timer = 0
 food_spawn_timer = 0
 stats_history = []
-
+paused = False
 while running:
-    dt = clock.tick(FPS)/1000
-    elapsed_time += dt
-    recording_timer += dt
-    food_spawn_timer += dt
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                paused = not paused
+    if not paused:
+        dt = clock.tick(FPS)/1000
+        elapsed_time += dt
+        recording_timer += dt
+        food_spawn_timer += dt
+            
 
     screen.fill(BACKGROUND_COLOR)
 
@@ -203,6 +208,10 @@ while running:
         food_item.draw()
 
     for organism in organisms[:]:
+        if paused:
+            organism.draw()
+            continue
+
         target_food = organism.sense_food(foods)
         organism.move(target_food, dt)
         organism.lose_energy(dt)
@@ -242,7 +251,7 @@ while running:
         avg_speed = 0
         avg_sensing_range = 0
 
-    if recording_timer>=1:
+    if not paused and recording_timer>=1:
         stats_history.append([
             elapsed_time, 
             population_count, 
@@ -278,7 +287,13 @@ while running:
     screen.blit(speed_text, (10,40))
     screen.blit(generation_text, (10,70))
     screen.blit(sensing_text, (10,100))
-    
+
+    if paused:
+        pause_text = stats_font.render(
+            "Paused -- press Space to resume",
+            True, (0,0,0)
+        )
+        screen.blit(pause_text, (10, HEIGHT - 35))
     pygame.display.flip()
 pygame.quit()
 
