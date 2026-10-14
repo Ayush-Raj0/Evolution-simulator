@@ -86,6 +86,12 @@ class Organism:
             if direction_length>0:
                 self.x += (self.wander_dx/direction_length) * self.speed
                 self.y += (self.wander_dy/direction_length) * self.speed
+        self.x = max(
+            ORGANISM_RADIUS, min(WIDTH - ORGANISM_RADIUS, self.x)
+        )
+        self.y = max(
+            ORGANISM_RADIUS, min(HEIGHT - ORGANISM_RADIUS, self.y)
+        )
     def lose_energy(self, dt):
         energy_loss_rate = (
             ENERGY_LOSS_RATE +
@@ -183,19 +189,20 @@ food_spawn_timer = 0
 stats_history = []
 paused = False
 while running:
+    dt = clock.tick(FPS)/1000
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 paused = not paused
+
     if not paused:
-        dt = clock.tick(FPS)/1000
         elapsed_time += dt
         recording_timer += dt
         food_spawn_timer += dt
-            
-
+    
     screen.fill(BACKGROUND_COLOR)
 
     while food_spawn_timer >= FOOD_SPAWN_INTERVAL:
@@ -262,12 +269,10 @@ while running:
 
 
     population_text = stats_font.render(
-        "Population: " + str(population_count),
-        True, (0,0,0)
+        "Population: " + str(population_count), True, (0,0,0)
     )
     speed_text = stats_font.render(
-        "Average Speed: " + str(round(avg_speed, 2)),
-        True, (0,0,0)
+        "Average Speed: " + str(round(avg_speed, 2)), True, (0,0,0)
     )
 
     if population_count > 0:
@@ -338,3 +343,4 @@ with open(settings_filename, "w", newline="") as settings_file:
         ["SENSING_ENERGY_COST", SENSING_ENERGY_COST],
         ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL]
     ])
+
