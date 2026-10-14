@@ -26,6 +26,8 @@ The current version establishes the basic survival and reproduction mechanics re
 * Sensing-dependent energy loss
 * Average sensing range display, CSV recording, and graph
 * Persistent wandering with timed direction changes
+* Pause and resume with the Space key and an on-screen pause indicator
+* Reset with the R key, automatically saving the previous run
 ## Planned Features
 * Trait mutation
 * Additional inherited traits
@@ -42,10 +44,13 @@ The current version establishes the basic survival and reproduction mechanics re
 
 The project was developed independently using Visual Studio Code. A public roadmap, development log, and experiment plan are included in the repository to document its progression and future work.
 
-- [Roadmap](ROADMAP.md): Completed features and future development plans.
-- [Experiment Plan](EXPERIMENTS.md): Questions, settings, and data planned for simulation experiments.
-- [Development Log](EXPERIMENTAL_LOG.md): Implementation notes, observations, and bug fixes.
+- [Roadmap](docs/ROADMAP.md): Completed features and future development plans.
+- [Experiment Plan](docs/EXPERIMENTS.md): Questions, settings, and data planned for simulation experiments.
+- [Development Log](docs/EXPERIMENTAL_LOG.md): Implementation notes, observations, and bug fixes.
 
+## Keyboard tips - 
+
+* Press R to save the current run and start a fresh simulation in the same window.
 
 ## How to Run
 To run the Evolution Simulator on your computer:
@@ -72,3 +77,4 @@ To run the Evolution Simulator on your computer:
 6. Open the `Evolution_simulator` file.
 
 7. Run the `Evolution_simulator` file to start the Evolution Simulator.
+

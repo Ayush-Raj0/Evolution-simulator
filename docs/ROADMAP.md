@@ -27,6 +27,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Explore additional inherited traits, such as size or sensing range.
 - [x] Add inherited sensing range with mutation and a sensing energy cost.
 - [x] Add persistent wandering direction.
+- [x] Add an R-key reset that saves the previous run before restarting.
 
 ## Next: Multi-generation Evolution
 Reproduction already produces descendants. The next stage is to track

@@ -263,3 +263,17 @@ Replaced random movement chosen every frame with persistent wandering when no fo
 Observed organisms maintaining a direction and then changing it at the expected interval, both after food became scarce and with reduced starting food and delayed replenishment. Added the wandering interval to the settings export and updated the README and roadmap.
 
 Next step: Continue developing inherited traits and environmental trade-offs.
+
+## 14 October 2026
+
+Fixed pause timing by keeping the frame clock running while paused, while allowing simulation timers to advance only when running. This prevents time spent paused from being counted as a large elapsed interval on resuming. Restored the movement boundary clamps so organisms remain inside the window during both food seeking and wandering.
+
+Moved the statistics and settings CSV exports into a reusable save_run() function. Checked that closing the simulation still saves both files. Added microseconds to the shared filename timestamp to distinguish runs saved in quick succession.
+
+Implemented reset using the R key. Reset saves the previous run before creating fresh organisms and food, clearing recorded statistics, resetting simulation timers, and resuming in the existing window. Checked the behaviour both while running and while paused, and confirmed that the previous run's files were saved. Corrected indentation and a lowercase organism() call during implementation.
+
+Wondered why reset appeared to switch to a different starting arrangement rather than reopening the window. Reset replaces the simulation's organisms and food, whose starting positions are randomly generated, while retaining the same Pygame window.
+
+Also questioned whether uneven frame durations could interfere with resetting timers. The timers are explicitly assigned zero, independently of frame timing. Subsequent updates accumulate measured elapsed time through dt. Events occur on the frame where their timer reaches the required interval, so their timing has frame-level precision.
+
+Next step: Continue with the remaining roadmap features.
