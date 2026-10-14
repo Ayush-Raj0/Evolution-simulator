@@ -180,7 +180,7 @@ class Food:
         )
 
 def save_run(stats_history):
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S_%f")
     stats_filename = "Simulation_stats_" + timestamp + ".csv"
 
     with open(stats_filename, "w", newline="") as stats_file:
@@ -240,6 +240,24 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 paused = not paused
+            elif event.key == pygame.K_r:
+                save_run(stats_history)
+
+                organisms = [
+                    Organism() for _ in range(ORGANISM_COUNT)
+                ]
+                foods = [
+                    Food() for _ in range(FOOD_COUNT)
+                ]
+
+                elapsed_time = 0
+                recording_timer = 0
+                food_spawn_timer = 0
+                stats_history = []
+                paused = False
+
+                clock.tick(FPS)
+                dt = 0
 
     if not paused:
         elapsed_time += dt
