@@ -179,6 +179,49 @@ class Food:
             FOOD_RADIUS
         )
 
+def save_run(stats_history):
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    stats_filename = "Simulation_stats_" + timestamp + ".csv"
+
+    with open(stats_filename, "w", newline="") as stats_file:
+        writer = csv.writer(stats_file)
+
+        writer.writerow([
+            "Elapsed_time", 
+            "population_count",
+            "avg_speed",
+            "avg_sensing_range"
+        ])
+
+        writer.writerows(stats_history)
+
+    settings_filename = "Simulation_settings_" + timestamp + ".csv"
+
+    with open(settings_filename, "w", newline="") as settings_file:
+        writer = csv.writer(settings_file)
+        writer.writerow(["settings", "value"])
+
+        writer.writerows([
+            ["ORGANISM_COUNT", ORGANISM_COUNT],
+            ["MIN_SPEED", MIN_SPEED],
+            ["MAX_SPEED", MAX_SPEED],
+            ["SENSING_RANGE", SENSING_RANGE],
+            ["STARTING_ENERGY", STARTING_ENERGY],
+            ["ENERGY_LOSS_RATE", ENERGY_LOSS_RATE],
+            ["SPEED_ENERGY_COST", SPEED_ENERGY_COST],
+            ["REPRODUCTION_THRESHOLD", REPRODUCTION_THRESHOLD],
+            ["REPRODUCTION_ENERGY_COST", REPRODUCTION_ENERGY_COST],
+            ["FOOD_COUNT", FOOD_COUNT],
+            ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE],
+            ["FOOD_SPAWN_INTERVAL", FOOD_SPAWN_INTERVAL],
+            ["MAX_FOOD_COUNT", MAX_FOOD_COUNT],
+            ["MIN_SENSING_RANGE", MIN_SENSING_RANGE],
+            ["MAX_SENSING_RANGE", MAX_SENSING_RANGE],
+            ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
+            ["SENSING_ENERGY_COST", SENSING_ENERGY_COST],
+            ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL]
+        ])
+
 organisms = [Organism() for _ in range(ORGANISM_COUNT)]
 foods = [Food() for _ in range(FOOD_COUNT)]
 
@@ -302,45 +345,6 @@ while running:
     pygame.display.flip()
 pygame.quit()
 
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-stats_filename = "Simulation_stats_" + timestamp + ".csv"
+save_run(stats_history)
 
-with open(stats_filename, "w", newline="") as stats_file:
-    writer = csv.writer(stats_file)
-
-    writer.writerow([
-        "Elapsed_time", 
-        "population_count",
-        "avg_speed",
-        "avg_sensing_range"
-    ])
-
-    writer.writerows(stats_history)
-
-settings_filename = "Simulation_settings_" + timestamp + ".csv"
-
-with open(settings_filename, "w", newline="") as settings_file:
-    writer = csv.writer(settings_file)
-    writer.writerow(["settings", "value"])
-
-    writer.writerows([
-        ["ORGANISM_COUNT", ORGANISM_COUNT],
-        ["MIN_SPEED", MIN_SPEED],
-        ["MAX_SPEED", MAX_SPEED],
-        ["SENSING_RANGE", SENSING_RANGE],
-        ["STARTING_ENERGY", STARTING_ENERGY],
-        ["ENERGY_LOSS_RATE", ENERGY_LOSS_RATE],
-        ["SPEED_ENERGY_COST", SPEED_ENERGY_COST],
-        ["REPRODUCTION_THRESHOLD", REPRODUCTION_THRESHOLD],
-        ["REPRODUCTION_ENERGY_COST", REPRODUCTION_ENERGY_COST],
-        ["FOOD_COUNT", FOOD_COUNT],
-        ["FOOD_ENERGY_VALUE", FOOD_ENERGY_VALUE],
-        ["FOOD_SPAWN_INTERVAL", FOOD_SPAWN_INTERVAL],
-        ["MAX_FOOD_COUNT", MAX_FOOD_COUNT],
-        ["MIN_SENSING_RANGE", MIN_SENSING_RANGE],
-        ["MAX_SENSING_RANGE", MAX_SENSING_RANGE],
-        ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
-        ["SENSING_ENERGY_COST", SENSING_ENERGY_COST],
-        ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL]
-    ])
 
