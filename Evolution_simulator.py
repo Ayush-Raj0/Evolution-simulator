@@ -181,7 +181,7 @@ class Food:
             FOOD_RADIUS
         )
 
-def save_run(stats_history):
+def save_run(stats_history, speed_history):
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S_%f")
     stats_filename = "Simulation_stats_" + timestamp + ".csv"
 
@@ -198,6 +198,12 @@ def save_run(stats_history):
         writer.writerows(stats_history)
 
     settings_filename = "Simulation_settings_" + timestamp + ".csv"
+    speed_filename = "Speed_settings_ " + timestamp + ".csv"
+
+    with open(speed_filename, "w", newline="") as speed_file:
+        writer = csv.writer(speed_file)
+        writer.writerow(["elapsed_time", "speed" ])
+        writer.writerows(speed_history)
 
     with open(settings_filename, "w", newline="") as settings_file:
         writer = csv.writer(settings_file)
@@ -225,6 +231,7 @@ def save_run(stats_history):
             ["RANDOM_SEED", RANDOM_SEED]
         ])
 
+
 organisms = [Organism() for _ in range(ORGANISM_COUNT)]
 foods = [Food() for _ in range(FOOD_COUNT)]
 
@@ -233,6 +240,7 @@ elapsed_time = 0
 recording_timer = 0
 food_spawn_timer = 0
 stats_history = []
+speed_history = []
 paused = False
 while running:
     dt = clock.tick(FPS)/1000
@@ -244,20 +252,17 @@ while running:
             if event.key == pygame.K_SPACE:
                 paused = not paused
             elif event.key == pygame.K_r:
-                save_run(stats_history)
+                save_run(stats_history, speed_history)
                 random.seed(RANDOM_SEED)
 
-                organisms = [
-                    Organism() for _ in range(ORGANISM_COUNT)
-                ]
-                foods = [
-                    Food() for _ in range(FOOD_COUNT)
-                ]
+                organisms = [Organism() for _ in range(ORGANISM_COUNT)]
+                foods = [Food() for _ in range(FOOD_COUNT)]
 
                 elapsed_time = 0
                 recording_timer = 0
                 food_spawn_timer = 0
                 stats_history = []
+                speed_history = []
                 paused = False
 
                 clock.tick(FPS)
@@ -330,6 +335,10 @@ while running:
             avg_speed,
             avg_sensing_range
         ])
+        for organism in organisms:
+            speed_history.append(
+                [elapsed_time, organism.speed]
+            )
         recording_timer %= 1
 
 
@@ -367,6 +376,6 @@ while running:
     pygame.display.flip()
 pygame.quit()
 
-save_run(stats_history)
+save_run(stats_history, speed_history)
 
 
