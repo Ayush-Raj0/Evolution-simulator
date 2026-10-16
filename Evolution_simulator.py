@@ -8,6 +8,8 @@ pygame.init()
 
 WIDTH, HEIGHT = 900, 600
 FPS = 60
+RANDOM_SEED = 42
+random.seed(RANDOM_SEED)
 
 ORGANISM_COUNT = 5
 ORGANISM_RADIUS = 8
@@ -219,7 +221,8 @@ def save_run(stats_history):
             ["MAX_SENSING_RANGE", MAX_SENSING_RANGE],
             ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
             ["SENSING_ENERGY_COST", SENSING_ENERGY_COST],
-            ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL]
+            ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL],
+            ["RANDOM_SEED", RANDOM_SEED]
         ])
 
 organisms = [Organism() for _ in range(ORGANISM_COUNT)]
@@ -242,6 +245,7 @@ while running:
                 paused = not paused
             elif event.key == pygame.K_r:
                 save_run(stats_history)
+                random.seed(RANDOM_SEED)
 
                 organisms = [
                     Organism() for _ in range(ORGANISM_COUNT)
