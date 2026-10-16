@@ -23,7 +23,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Give each child its parent's generation number plus 1.
 - [x] Display the highest generation currently alive.
 - [x] Record population size and average speed over time.
-- [x] Plot population size and average speed over time from exported CSV data.experiment controls.
+- [x] Plot population size and average speed over time from exported CSV data.
 - [x] Explore additional inherited traits, such as size or sensing range.
 - [x] Add inherited sensing range with mutation and a sensing energy cost.
 - [x] Add persistent wandering direction.
@@ -53,6 +53,7 @@ These are longer-term ideas rather than a fixed implementation order -
 ## Advanced Future Features
 
 - Add organism decision-making using small neural networks.
+- Add Gaussian mutation
 - Evolve neural-network weights through inheritance and genetic mutation.
 - Compare evolved behaviour with the existing food-seeking rules.
 - Measure performance as organism and food counts increase.
