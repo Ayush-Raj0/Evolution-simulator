@@ -28,14 +28,9 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Add inherited sensing range with mutation and a sensing energy cost.
 - [x] Add persistent wandering direction.
 - [x] Add an R-key reset that saves the previous run before restarting.
-
-## Next: Multi-generation Evolution
-Reproduction already produces descendants. The next stage is to track
-generations and study how inherited traits change under environmental
-pressures.
-
-- Run experiments with different food availability and energy costs.
-- Analyse how survival and reproduction affect the distribution of speeds.
+- [x] Add a recorded random seed and reapply it on reset.
+- [x] Record individual organism speeds over time for distribution analysis.
+- [x] Use random seeds for reproducible experiments.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -
@@ -45,10 +40,22 @@ These are longer-term ideas rather than a fixed implementation order -
 - Explore communication, cooperation, resource storage, and specialised behaviour.
 - Add Experiment controls.
 
-- Use random seeds for reproducible experiments.
 - Add speed-distribution graphs.
 - Add food patches and extend environmental zones.
 - Track family lines and their descendants.
+- Visualise critically low energy by fading organisms towards the background colour.
+- Add an energy indicator that shrinks as remaining energy decreases.
+- Keep energy indicators distinct from inherited speed and size visualisations.
+
+
+## Next: Multi-generation Evolution
+Reproduction already produces descendants. The next stage is to track
+generations and study how inherited traits change under environmental
+pressures.
+
+- Run experiments with different food availability and energy costs.
+- Analyse how survival and reproduction affect the distribution of speeds.
+
 
 ## Advanced Future Features
 

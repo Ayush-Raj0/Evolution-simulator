@@ -28,6 +28,8 @@ The current version establishes the basic survival and reproduction mechanics re
 * Persistent wandering with timed direction changes
 * Pause and resume with the Space key and an on-screen pause indicator
 * Reset with the R key, automatically saving the previous run
+- Configurable random seed, recorded with run settings and reapplied on reset
+- Individual organism speed recording at each statistics sample
 ## Planned Features
 * Trait mutation
 * Additional inherited traits
