@@ -7,7 +7,7 @@ from datetime import datetime
 pygame.init()
 
 WIDTH, HEIGHT = 900, 600
-FPS = 30
+FPS = 60
 
 SIMULATION_HZ = 60
 FIXED_DT = 1.0/SIMULATION_HZ
