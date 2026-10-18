@@ -7,7 +7,10 @@ from datetime import datetime
 pygame.init()
 
 WIDTH, HEIGHT = 900, 600
-FPS = 60
+FPS = 30
+
+SIMULATION_HZ = 60
+FIXED_DT = 1.0/SIMULATION_HZ
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 
@@ -242,15 +245,16 @@ food_spawn_timer = 0
 stats_history = []
 speed_history = []
 paused = False
+accumulator = 0.0
 while running:
     dt = clock.tick(FPS)/1000
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 paused = not paused
+
             elif event.key == pygame.K_r:
                 save_run(stats_history, speed_history)
                 random.seed(RANDOM_SEED)
@@ -261,6 +265,7 @@ while running:
                 elapsed_time = 0
                 recording_timer = 0
                 food_spawn_timer = 0
+                accumulator = 0.0
                 stats_history = []
                 speed_history = []
                 paused = False
@@ -268,46 +273,78 @@ while running:
                 clock.tick(FPS)
                 dt = 0
 
+
+    if not running:
+        break
+
     if not paused:
-        elapsed_time += dt
-        recording_timer += dt
-        food_spawn_timer += dt
-    
-    screen.fill(BACKGROUND_COLOR)
+        accumulator += dt
 
-    while food_spawn_timer >= FOOD_SPAWN_INTERVAL:
-        food_spawn_timer -= FOOD_SPAWN_INTERVAL
+    while not paused and accumulator >= FIXED_DT:
+        elapsed_time += FIXED_DT
+        recording_timer += FIXED_DT
+        food_spawn_timer += FIXED_DT
 
-        if len(foods) < MAX_FOOD_COUNT:
-            foods.append(Food())
+        while food_spawn_timer >= FOOD_SPAWN_INTERVAL:
+            food_spawn_timer -= FOOD_SPAWN_INTERVAL
 
-    for food_item in foods:
-        food_item.draw()
+            if len(foods) < MAX_FOOD_COUNT:
+                foods.append(Food())
 
-    for organism in organisms[:]:
-        if paused:
-            organism.draw()
-            continue
+        for organism in organisms[:]:
+            target_food = organism.sense_food(foods)
+            organism.move(target_food, FIXED_DT)
+            organism.lose_energy(FIXED_DT)
 
-        target_food = organism.sense_food(foods)
-        organism.move(target_food, dt)
-        organism.lose_energy(dt)
+            if organism.energy <= 0:
+                organisms.remove(organism)
+                continue
 
+            for food_item in foods[:]:
+                if organism.collides_with(food_item):
+                    organism.eat(food_item)
+                    foods.remove(food_item)
 
-        if organism.energy <= 0:
-            organisms.remove(organism)
-            continue
-        
-        for food_item in foods[:]:
-            if organism.collides_with(food_item):
-                organism.eat(food_item)
-                foods.remove(food_item)
+            child = organism.reproduce()
+            if child is not None:
+                organisms.append(child)
 
-        child=organism.reproduce()
-        if child is not None:
-            organisms.append(child)
-       
-        organism.draw()
+        population_count = len(organisms)
+        total_speed = 0
+        total_sensing_range = 0
+        highest_generation = 0
+
+        for organism in organisms:
+            total_speed += organism.speed
+            total_sensing_range += organism.sensing_range
+
+            if organism.generation > highest_generation:
+                highest_generation = organism.generation
+
+        if population_count > 0:
+            avg_speed = total_speed / population_count
+            avg_sensing_range = total_sensing_range / population_count
+        else:
+            avg_speed = 0
+            avg_sensing_range = 0
+
+        if recording_timer >= 1:
+            stats_history.append([
+                elapsed_time,
+                population_count,
+                avg_speed,
+                avg_sensing_range
+            ])
+
+            for organism in organisms:
+                speed_history.append([
+                    elapsed_time,
+                    organism.speed
+                ])
+
+            recording_timer %= 1
+
+        accumulator -= FIXED_DT
 
     population_count = len(organisms)
     total_speed = 0
@@ -317,30 +354,24 @@ while running:
     for organism in organisms:
         total_speed += organism.speed
         total_sensing_range += organism.sensing_range
+        highest_generation = max(
+            highest_generation, organism.generation
+        )
 
-        if organism.generation>highest_generation:
-            highest_generation = organism.generation
-
-    if population_count>0:
-        avg_speed = total_speed/population_count
-        avg_sensing_range = total_sensing_range/population_count
+    if population_count > 0:
+        avg_speed = total_speed / population_count
+        avg_sensing_range = total_sensing_range / population_count
     else:
         avg_speed = 0
         avg_sensing_range = 0
 
-    if not paused and recording_timer>=1:
-        stats_history.append([
-            elapsed_time, 
-            population_count, 
-            avg_speed,
-            avg_sensing_range
-        ])
-        for organism in organisms:
-            speed_history.append(
-                [elapsed_time, organism.speed]
-            )
-        recording_timer %= 1
+    screen.fill(BACKGROUND_COLOR)
 
+    for food_item in foods:
+        food_item.draw()
+
+    for organism in organisms:
+        organism.draw()
 
     population_text = stats_font.render(
         "Population: " + str(population_count), True, (0,0,0)
