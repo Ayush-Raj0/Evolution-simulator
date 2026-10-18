@@ -184,6 +184,31 @@ class Food:
             FOOD_RADIUS
         )
 
+def calculate_stats(organisms):
+    population_count = len(organisms)
+    total_speed = 0
+    total_sensing_range = 0
+    highest_generation = 0
+
+    for organism in organisms:
+        total_speed += organism.speed
+        total_sensing_range += organism.sensing_range
+        highest_generation = max(highest_generation, organism.generation)
+
+    if population_count > 0:
+        avg_speed = total_speed/population_count
+        avg_sensing_range = total_sensing_range/population_count
+    else:
+        avg_speed = 0
+        avg_sensing_range = 0
+
+    return (
+        population_count,
+        avg_speed,
+        avg_sensing_range,
+        highest_generation
+    )
+
 def save_run(stats_history, speed_history):
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S_%f")
     stats_filename = "Simulation_stats_" + timestamp + ".csv"
@@ -231,7 +256,10 @@ def save_run(stats_history, speed_history):
             ["SENSING_MUTATION_AMOUNT", SENSING_MUTATION_AMOUNT],
             ["SENSING_ENERGY_COST", SENSING_ENERGY_COST],
             ["WANDER_DIRECTION_INTERVAL", WANDER_DIRECTION_INTERVAL],
-            ["RANDOM_SEED", RANDOM_SEED]
+            ["RANDOM_SEED", RANDOM_SEED],
+            ["FPS", FPS],
+            ["SIMULATION_HZ", SIMULATION_HZ],
+            ["FIXED_DT", FIXED_DT]
         ])
 
 
@@ -309,24 +337,12 @@ while running:
             if child is not None:
                 organisms.append(child)
 
-        population_count = len(organisms)
-        total_speed = 0
-        total_sensing_range = 0
-        highest_generation = 0
-
-        for organism in organisms:
-            total_speed += organism.speed
-            total_sensing_range += organism.sensing_range
-
-            if organism.generation > highest_generation:
-                highest_generation = organism.generation
-
-        if population_count > 0:
-            avg_speed = total_speed / population_count
-            avg_sensing_range = total_sensing_range / population_count
-        else:
-            avg_speed = 0
-            avg_sensing_range = 0
+        (
+            population_count,
+            avg_speed,
+            avg_sensing_range,
+            highest_generation
+        ) = calculate_stats(organisms)
 
         if recording_timer >= 1:
             stats_history.append([
@@ -346,24 +362,12 @@ while running:
 
         accumulator -= FIXED_DT
 
-    population_count = len(organisms)
-    total_speed = 0
-    total_sensing_range = 0
-    highest_generation = 0
-
-    for organism in organisms:
-        total_speed += organism.speed
-        total_sensing_range += organism.sensing_range
-        highest_generation = max(
-            highest_generation, organism.generation
-        )
-
-    if population_count > 0:
-        avg_speed = total_speed / population_count
-        avg_sensing_range = total_sensing_range / population_count
-    else:
-        avg_speed = 0
-        avg_sensing_range = 0
+    (
+        population_count,
+        avg_speed,
+        avg_sensing_range,
+        highest_generation
+    ) = calculate_stats(organisms)
 
     screen.fill(BACKGROUND_COLOR)
 
