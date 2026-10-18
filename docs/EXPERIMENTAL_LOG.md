@@ -289,3 +289,25 @@ Inspected the exported speed records and confirmed that multiple organisms share
 Expanded the roadmap with trait visualisation ideas: mapping speed to colour, representing a future inherited size trait through body radius, and indicating critically low energy through fading or a shrinking energy indicator. Considered keeping these visual meanings distinct so low energy is not confused with a change in inherited size.
 
 Next step: Plot speed distributions from the recorded individual speed samples.
+
+## 17 October 2026
+
+Created plot_speed_distribution.py to inspect individual organism speeds at a selected sampling time. The script reads the speeds CSV and groups records by time, allowing each population snapshot to be examined separately rather than combining repeated observations across the entire run.
+
+Added a time selection prompt that chooses the nearest available recorded sample. Revisited how lambda works with min() to compare the distance between recorded times and the requested time.
+
+Implemented a histogram showing the number of organisms within each speed interval and saved it as a PNG. Corrected filename handling, the title expression, and the image export argument during implementation. Ran the script and confirmed that it generated the histogram successfully.
+
+Next step: Use consistent speed intervals and display the sampled population to make comparisons clearer.
+
+## 18 October 2026
+
+Replaced automatically chosen histogram intervals with fixed boundaries from 1 to 3 pixels per frame, in steps of 0.2. Fixed the horizontal axis to the same range, matching the simulator's current speed limits.
+
+Questioned what this change achieved and clarified that automatic intervals can differ between snapshots. Fixed boundaries ensure that each bar represents the same speed range across graphs without changing the simulation or recorded data.
+
+Added the selected snapshot's population count to the histogram title. This provides context when comparing bar heights between populations of different sizes. Checked the updated graph and confirmed that the population count appeared correctly.
+
+Updated the README and roadmap to reflect completed speed-distribution plotting.
+
+Next step: Use the completed plotting tools to inspect changes in speed distributions over time.
