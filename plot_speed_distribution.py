@@ -48,9 +48,10 @@ plot.xlim(1.0, 3.0)
 plot.xlabel("Speed (pixels per frame)")
 plot.ylabel("Number of organisms")
 plot.title(
-    "Speed distribution at "
+    "Speed distribution at " 
     + str(round(selected_time, 3))
-    + " seconds"
+    + "seconds\nPopulation: "
+    + str(len(selected_speeds))
 )
 
 plot.savefig(
