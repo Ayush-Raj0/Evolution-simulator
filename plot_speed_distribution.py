@@ -39,7 +39,12 @@ selected_speeds = speeds_by_time[selected_time]
 print("Using sample at " + str(round(selected_time, 3)) + " seconds.")
 
 plot.figure()
-plot.hist(selected_speeds, bins=10, edgecolor="black")
+speed_bins = [
+    1.0, 1.2, 1.4, 1.6, 1.8, 
+    2.0, 2.2, 2.4, 2.6, 2.8, 3.0
+]
+plot.hist(selected_speeds, bins=speed_bins, edgecolor="black")
+plot.xlim(1.0, 3.0)
 plot.xlabel("Speed (pixels per frame)")
 plot.ylabel("Number of organisms")
 plot.title(
