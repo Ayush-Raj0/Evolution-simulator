@@ -231,6 +231,7 @@ simulation_stats_*_average_speed.png
 
 simulation_settings_*.csv
 Speed_settings_*.csv
+
 Simulation_stats_*average_sensing_range_over_time.png
 Simulation_stats_*average_speed_over_time.png
 Simulation_stats_*population_over_time.png
@@ -238,3 +239,6 @@ Simulation_speeds_*.csv
 Simulation_speeds_*_speed_distribution_*.png
 
 Speed_settings_*_speed_distribution_*.png
+
+Simulation_stats_*.csv
+Simulation_settings_*.csv
