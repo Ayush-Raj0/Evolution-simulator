@@ -31,7 +31,7 @@ The current version establishes the basic survival and reproduction mechanics re
 - Configurable random seed, recorded with run settings and reapplied on reset
 - Individual organism speed recording at each statistics sample
 - Speed-distribution histograms for a selected sampling time, with fixed speed intervals and population counts
-
+- Fixed simulation updates separated from rendering, keeping simulation behaviour consistent across rendering frame rates
 ## Planned Features
 * Trait mutation
 * Additional inherited traits

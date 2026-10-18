@@ -32,6 +32,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Record individual organism speeds over time for distribution analysis.
 - [x] Use random seeds for reproducible experiments.
 - [x] Plot speed distributions at selected sampling times using consistent intervals.
+- [x] Separate simulation updates from rendering using a fixed timestep.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -

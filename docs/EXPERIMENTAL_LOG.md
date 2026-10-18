@@ -302,7 +302,7 @@ Next step: Use consistent speed intervals and display the sampled population to 
 
 ## 18 October 2026
 
-Replaced automatically chosen histogram intervals with fixed boundaries from 1 to 3 pixels per frame, in steps of 0.2. Fixed the horizontal axis to the same range, matching the simulator's current speed limits.
+Replaced automatically chosen histogram intervals with fixed boundaries from 1 to 3 pixels per simulation update, in steps of 0.2. Fixed the horizontal axis to the same range, matching the simulator's current speed limits.
 
 Questioned what this change achieved and clarified that automatic intervals can differ between snapshots. Fixed boundaries ensure that each bar represents the same speed range across graphs without changing the simulation or recorded data.
 
@@ -310,4 +310,16 @@ Added the selected snapshot's population count to the histogram title. This prov
 
 Updated the README and roadmap to reflect completed speed-distribution plotting.
 
-Next step: Use the completed plotting tools to inspect changes in speed distributions over time.
+Investigated whether movement and energy expenditure used consistent timing. Movement previously occurred once per rendered frame, while energy loss and other timers depended on elapsed seconds. This meant a lower rendering frame rate could reduce the distance organisms travelled without reducing their energy expenditure per second.
+
+Introduced a fixed simulation timestep of 1/60 second and an accumulator that determines how many updates are needed before drawing each frame. Movement, energy loss, food replenishment, reproduction checks, and statistics recording now run within the fixed-update loop. Drawing remains separate, and reset clears the accumulator.
+
+Compared runs rendered at 30 and 60 FPS using the same random seed and simulation settings. The first eight recorded samples matched exactly across elapsed time, population, average speed, and average sensing range. Rendering at 30 FPS appeared rougher, but the recorded simulation behaviour remained consistent. Restored rendering to 60 FPS and added timing parameters to the settings export.
+
+Questioned what would happen at higher or nonstandard rendering rates, such as 120, 43, or 95 FPS. Clarified that the accumulator accommodates different ratios between rendering and simulation updates. Also distinguished the display's refresh rate from rendering FPS and simulation frequency; drawing more frequently does not increase the simulation's update rate.
+
+Extracted the repeated population statistics calculation into calculate_stats(), returning the population count, average speed, average sensing range, and highest living generation. Used the function for both recording and display, and checked that the simulation continued to work.
+
+Reviewed generated-file ignore patterns and added explicit rules matching the capitalised simulation CSV filenames.
+
+Next step: Continue with the remaining roadmap features using the fixed-timestep simulation as the foundation.
