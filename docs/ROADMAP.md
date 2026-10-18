@@ -31,6 +31,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Add a recorded random seed and reapply it on reset.
 - [x] Record individual organism speeds over time for distribution analysis.
 - [x] Use random seeds for reproducible experiments.
+- [x] Plot speed distributions at selected sampling times using consistent intervals.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -
@@ -40,7 +41,6 @@ These are longer-term ideas rather than a fixed implementation order -
 - Explore communication, cooperation, resource storage, and specialised behaviour.
 - Add Experiment controls.
 
-- Add speed-distribution graphs.
 - Add food patches and extend environmental zones.
 - Track family lines and their descendants.
 - Visualise critically low energy by fading organisms towards the background colour.

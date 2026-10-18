@@ -30,6 +30,8 @@ The current version establishes the basic survival and reproduction mechanics re
 * Reset with the R key, automatically saving the previous run
 - Configurable random seed, recorded with run settings and reapplied on reset
 - Individual organism speed recording at each statistics sample
+- Speed-distribution histograms for a selected sampling time, with fixed speed intervals and population counts
+
 ## Planned Features
 * Trait mutation
 * Additional inherited traits

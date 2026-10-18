@@ -277,3 +277,15 @@ Wondered why reset appeared to switch to a different starting arrangement rather
 Also questioned whether uneven frame durations could interfere with resetting timers. The timers are explicitly assigned zero, independently of frame timing. Subsequent updates accumulate measured elapsed time through dt. Events occur on the frame where their timer reaches the required interval, so their timing has frame-level precision.
 
 Next step: Continue with the remaining roadmap features.
+
+## 16 October 2026
+
+Added a configurable random seed and included it in each run's settings export. Reset now reapplies the seed before creating organisms and food, allowing the same initial arrangement and starting traits to be recreated. Variable frame timing can still cause later behaviour to differ, so the seed alone does not guarantee identical simulation outcomes.
+
+Added individual organism speed recording at each statistics sample. Each living organism contributes a row containing the elapsed simulation time and its speed. These records are saved in a separate speeds CSV using the same timestamp as the run's statistics and settings files, and are cleared after saving when resetting.
+
+Inspected the exported speed records and confirmed that multiple organisms share each sampling time. Repeated speeds across samples are expected because an organism retains its speed during its lifetime. Speed-distribution plotting remains to be implemented.
+
+Expanded the roadmap with trait visualisation ideas: mapping speed to colour, representing a future inherited size trait through body radius, and indicating critically low energy through fading or a shrinking energy indicator. Considered keeping these visual meanings distinct so low energy is not confused with a change in inherited size.
+
+Next step: Plot speed distributions from the recorded individual speed samples.
