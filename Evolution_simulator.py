@@ -17,6 +17,8 @@ random.seed(RANDOM_SEED)
 ORGANISM_COUNT = 5
 ORGANISM_RADIUS = 8
 ORGANISM_COLOR = (0, 0, 255)
+SLOW_SPEED_COLOR = (0, 80, 220)
+FAST_SPEED_COLOR = (240, 100, 20)
 MIN_SPEED = 1
 MAX_SPEED = 3
 SENSING_RANGE = 85
@@ -154,11 +156,28 @@ class Organism:
 
             self.energy -= REPRODUCTION_ENERGY_COST
             return child
+    def get_organism_color(self):
+        speed_fraction = (
+            (self.speed - MIN_SPEED)
+            / (MAX_SPEED - MIN_SPEED)
+        )
 
+        color = []
+        for channel in range(3):
+            value = (
+                SLOW_SPEED_COLOR[channel]
+                + speed_fraction
+                * (FAST_SPEED_COLOR[channel] - SLOW_SPEED_COLOR[channel])
+            )
+            color.append(round(value))
+
+        return tuple(color)
+
+    
     def draw(self):
         pygame.draw.circle(
             screen,
-            ORGANISM_COLOR,
+            self.get_organism_color(),
             (int(self.x), int(self.y)),
             ORGANISM_RADIUS
         )
@@ -402,6 +421,15 @@ while running:
     screen.blit(generation_text, (10,70))
     screen.blit(sensing_text, (10,100))
 
+    slow_label = stats_font.render(
+        "Blue: Slower", True, SLOW_SPEED_COLOR
+    )
+    fast_label = stats_font.render(
+        "Orange: Faster", True, FAST_SPEED_COLOR
+    )
+
+    screen.blit(slow_label, (10, HEIGHT - 95))
+    screen.blit(fast_label, (10, HEIGHT - 65))
     if paused:
         pause_text = stats_font.render(
             "Paused -- press Space to resume",
