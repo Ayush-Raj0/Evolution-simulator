@@ -32,6 +32,7 @@ The current version establishes the basic survival and reproduction mechanics re
 - Individual organism speed recording at each statistics sample
 - Speed-distribution histograms for a selected sampling time, with fixed speed intervals and population counts
 - Fixed simulation updates separated from rendering, keeping simulation behaviour consistent across rendering frame rates
+- Individual organism colours mapped to speed using a continuous blue-to-orange gradient
 ## Planned Features
 * Trait mutation
 * Additional inherited traits

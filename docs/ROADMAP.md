@@ -30,9 +30,9 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Add an R-key reset that saves the previous run before restarting.
 - [x] Add a recorded random seed and reapply it on reset.
 - [x] Record individual organism speeds over time for distribution analysis.
-- [x] Use random seeds for reproducible experiments.
 - [x] Plot speed distributions at selected sampling times using consistent intervals.
 - [x] Separate simulation updates from rendering using a fixed timestep.
+- [x] Map individual organism colours to speed using a continuous blue-to-orange gradient and display a legend.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -

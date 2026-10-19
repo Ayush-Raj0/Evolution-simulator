@@ -323,3 +323,17 @@ Extracted the repeated population statistics calculation into calculate_stats(),
 Reviewed generated-file ignore patterns and added explicit rules matching the capitalised simulation CSV filenames.
 
 Next step: Continue with the remaining roadmap features using the fixed-timestep simulation as the foundation.
+
+## 19 October 2026
+
+Updated the speed-axis labels in the plotting scripts from pixels per frame to pixels per simulation update, matching the fixed-timestep implementation.
+
+Added individual organism colours based on movement speed. A normalised speed value blends RGB components between blue at minimum speed and orange at maximum speed, producing a continuous gradient.
+
+During implementation, corrected a missing method-call parenthesis that caused an invalid colour argument. Also corrected addition to multiplication in the blending formula after observing that all organisms initially appeared orange. Running the corrected version showed intermediate colours between the endpoints.
+
+Added a legend identifying the slower and faster ends of the gradient. Each organism retains its colour while its speed remains unchanged, while offspring can receive slightly different colours through speed mutation. Energy visualisation remains a separate planned feature.
+
+Updated the README and roadmap to reflect completed speed-based colour mapping.
+
+Next step: Continue with the remaining roadmap features.
