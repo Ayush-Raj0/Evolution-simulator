@@ -45,7 +45,7 @@ speed_bins = [
 ]
 plot.hist(selected_speeds, bins=speed_bins, edgecolor="black")
 plot.xlim(1.0, 3.0)
-plot.xlabel("Speed (pixels per frame)")
+plot.xlabel("Speed (pixels per simulation update)")
 plot.ylabel("Number of organisms")
 plot.title(
     "Speed distribution at " 

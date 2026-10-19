@@ -30,7 +30,7 @@ plot.savefig(run_name + "population_over_time.png", dpi=150, bbox_inches="tight"
 plot.figure()
 plot.plot(times, average_speeds)
 plot.xlabel("Elapsed time(seconds)")
-plot.ylabel("Average speed(pixels per frame)")
+plot.ylabel("Average speed(pixels per simulation update)")
 plot.title("Average Speed over Time")
 plot.savefig(run_name + "average_speed_over_time.png", dpi=150, bbox_inches="tight")
 
