@@ -422,10 +422,10 @@ while running:
     screen.blit(sensing_text, (10,100))
 
     slow_label = stats_font.render(
-        "Blue: Slower", True, SLOW_SPEED_COLOR
+        "Slower end: Blue", True, SLOW_SPEED_COLOR
     )
     fast_label = stats_font.render(
-        "Orange: Faster", True, FAST_SPEED_COLOR
+        "Faster end: Faster", True, FAST_SPEED_COLOR
     )
 
     screen.blit(slow_label, (10, HEIGHT - 95))
