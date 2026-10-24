@@ -175,22 +175,25 @@ class Organism:
 
         return tuple(color)
 
-    def get_display_color(self):
-        speed_color = self.get_organism_color()
+    def get_display_color(self, show_speed_colors):
+        if show_speed_colors:
+            base_color = self.get_organism_color()
+        else:
+            base_color = ORGANISM_COLOR
 
         brightness = max(
             0.2, 
             min(1.0, self.energy / CRITICAL_ENERGY_THRESHOLD)
             )
         color = []
-        for channel in speed_color:
+        for channel in base_color:
             color.append(round(channel * brightness))
         return tuple(color)
     
-    def draw(self):
+    def draw(self, show_speed_colors):
         pygame.draw.circle(
             screen,
-            self.get_display_color(),
+            self.get_display_color(show_speed_colors),
             (int(self.x), int(self.y)),
             ORGANISM_RADIUS
         )
@@ -291,7 +294,8 @@ def save_run(stats_history, speed_history):
             ["RANDOM_SEED", RANDOM_SEED],
             ["FPS", FPS],
             ["SIMULATION_HZ", SIMULATION_HZ],
-            ["FIXED_DT", FIXED_DT]
+            ["FIXED_DT", FIXED_DT],
+            ["CRITICAL_ENERGY_THRESHOLD", CRITICAL_ENERGY_THRESHOLD],
         ])
 
 
@@ -305,7 +309,9 @@ food_spawn_timer = 0
 stats_history = []
 speed_history = []
 paused = False
+show_speed_colors = False
 accumulator = 0.0
+
 while running:
     dt = clock.tick(FPS)/1000
     for event in pygame.event.get():
@@ -314,7 +320,8 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 paused = not paused
-
+            elif event.key == pygame.K_v:
+                show_speed_colors = not show_speed_colors
             elif event.key == pygame.K_r:
                 save_run(stats_history, speed_history)
                 random.seed(RANDOM_SEED)
@@ -407,7 +414,7 @@ while running:
         food_item.draw()
 
     for organism in organisms:
-        organism.draw()
+        organism.draw(show_speed_colors)
 
     population_text = stats_font.render(
         "Population: " + str(population_count), True, (0,0,0)
@@ -434,18 +441,30 @@ while running:
     screen.blit(generation_text, (10,70))
     screen.blit(sensing_text, (10,100))
 
-    slow_label = legend_font.render(
-        "Slower end: Blue", True, SLOW_SPEED_COLOR
+    if show_speed_colors:
+        mode_text = "View: speed traits (Press v to switch)"
+        mode_y = HEIGHT - 155
+        slow_label = legend_font.render(
+            "Slower end: Blue", True, SLOW_SPEED_COLOR
+        )
+        fast_label = legend_font.render(
+            "Faster end: Faster", True, FAST_SPEED_COLOR
+        )
+        screen.blit(slow_label, (10, HEIGHT - 125))
+        screen.blit(fast_label, (10, HEIGHT - 95))
+
+    else:
+        mode_text = "View: Normal (Press v to switch)"
+        mode_y = HEIGHT - 95
+
+    mode_label = legend_font.render(
+        mode_text, True, (0,0,0)
     )
-    fast_label = legend_font.render(
-        "Faster end: Faster", True, FAST_SPEED_COLOR
-    )
-    screen.blit(slow_label, (10, HEIGHT - 125))
-    screen.blit(fast_label, (10, HEIGHT - 95))
 
     energy_label = legend_font.render(
         "Darker Body: Low energy", True, (0,0,0)
     )
+    screen.blit(mode_label, (10, mode_y))
     screen.blit(energy_label, (10, HEIGHT - 65))
 
     if paused:
