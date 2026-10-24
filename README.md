@@ -57,7 +57,8 @@ The project was developed independently using Visual Studio Code. A public roadm
 
 ## Keyboard tips - 
 
-* Press R to save the current run and start a fresh simulation in the same window.
+* Press **R** to save the current run and start a fresh simulation in the same window.
+* To pause the window, Press **Space**
 
 ## How to Run
 To run the Evolution Simulator on your computer:
