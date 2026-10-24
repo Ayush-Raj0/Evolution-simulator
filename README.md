@@ -35,6 +35,7 @@ The current version establishes the basic survival and reproduction mechanics re
 - Individual organism colours mapped to speed using a continuous blue-to-orange gradient
 - Organisms darken below a configurable energy threshold to indicate low energy
 - Compact legend explaining speed colours and low-energy darkening
+- Switchable normal and speed-trait view modes, with low-energy darkening in both modes
 ## Planned Features
 * Trait mutation
 * Additional inherited traits
@@ -58,7 +59,8 @@ The project was developed independently using Visual Studio Code. A public roadm
 ## Keyboard tips - 
 
 * Press **R** to save the current run and start a fresh simulation in the same window.
-* To pause the window, Press **Space**
+* Press **Space** to pause the window 
+* Press **V** to switch between normal and speed-trait views.
 
 ## How to Run
 To run the Evolution Simulator on your computer:

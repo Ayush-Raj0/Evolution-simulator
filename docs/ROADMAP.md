@@ -34,6 +34,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Separate simulation updates from rendering using a fixed timestep.
 - [x] Map individual organism colours to speed using a continuous blue-to-orange gradient and display a legend.
 - [x] Visualise low energy by darkening organism body colours.
+- [x] Add switchable normal and speed-trait views with an adaptive legend.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -

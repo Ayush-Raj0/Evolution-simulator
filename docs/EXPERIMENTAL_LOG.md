@@ -348,6 +348,10 @@ Considered alternative energy indicators. Bars and rings would add clutter aroun
 
 Added a low-energy explanation to the visual legend and reduced all three legend labels from font size 28 to 25.
 
-Observed that the range of speed colours made organisms feel less like members of the same species. Planned two viewing modes: a normal view with a shared body colour and a trait view showing the speed gradient. Both would retain low-energy darkening. These viewing modes remain to be implemented.
+Recognised that displaying organisms in different speed-based colours made it harder to perceive them as members of the same species and distinguish their low-energy darkening. 
 
-Next step: Add switchable normal and speed-trait viewing modes.
+Addressed this by adding two viewing modes, toggled with V. Normal view uses a shared body colour, making the darkening below the critical-energy threshold easier to observe. Speed-trait view retains the colour gradient for inspecting inherited speed differences. Both views apply the same low-energy darkening.
+
+Updated the legend to match the selected view. Normal view keeps the mode and energy labels together, while speed-trait view moves the mode label upward to accommodate the speed-colour explanations. Checked switching while running and paused, and confirmed that reset preserves the selected view.
+
+Next step: Continue with the remaining roadmap features.
