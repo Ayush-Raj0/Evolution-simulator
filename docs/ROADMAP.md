@@ -33,6 +33,7 @@ behaviour and progressing towards observable evolution across generations.
 - [x] Plot speed distributions at selected sampling times using consistent intervals.
 - [x] Separate simulation updates from rendering using a fixed timestep.
 - [x] Map individual organism colours to speed using a continuous blue-to-orange gradient and display a legend.
+- [x] Visualise low energy by darkening organism body colours.
 
 ## Future Ideas: After the Current Roadmap
 These are longer-term ideas rather than a fixed implementation order -
@@ -44,7 +45,6 @@ These are longer-term ideas rather than a fixed implementation order -
 
 - Add food patches and extend environmental zones.
 - Track family lines and their descendants.
-- Visualise critically low energy by fading organisms towards the background colour.
 - Add an energy indicator that shrinks as remaining energy decreases.
 - Keep energy indicators distinct from inherited speed and size visualisations.
 

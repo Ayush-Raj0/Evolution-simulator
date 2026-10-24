@@ -33,6 +33,8 @@ The current version establishes the basic survival and reproduction mechanics re
 - Speed-distribution histograms for a selected sampling time, with fixed speed intervals and population counts
 - Fixed simulation updates separated from rendering, keeping simulation behaviour consistent across rendering frame rates
 - Individual organism colours mapped to speed using a continuous blue-to-orange gradient
+- Organisms darken below a configurable energy threshold to indicate low energy
+- Compact legend explaining speed colours and low-energy darkening
 ## Planned Features
 * Trait mutation
 * Additional inherited traits

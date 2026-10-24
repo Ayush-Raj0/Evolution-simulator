@@ -337,3 +337,17 @@ Added a legend identifying the slower and faster ends of the gradient. Each orga
 Updated the README and roadmap to reflect completed speed-based colour mapping.
 
 Next step: Continue with the remaining roadmap features.
+
+## 24 October 2026
+
+Implemented low-energy darkening through get_display_color(), which adjusts the brightness of each organism's existing speed colour. Organisms retain their full colour above the configured energy threshold and become progressively darker below it, with a minimum brightness of 20%. This changes appearance without affecting simulation mechanics.
+
+Initially tested a critical-energy threshold of 30. The darkening appeared too brief and abrupt, so increased it to 50 to make the transition easier to observe.
+
+Considered alternative energy indicators. Bars and rings would add clutter around a large population, shrinking would conflict with the planned inherited size trait, and changing shape would disrupt the intended appearance. Chose body darkening while accepting that speed colours become harder to distinguish at low energy.
+
+Added a low-energy explanation to the visual legend and reduced all three legend labels from font size 28 to 25.
+
+Observed that the range of speed colours made organisms feel less like members of the same species. Planned two viewing modes: a normal view with a shared body colour and a trait view showing the speed gradient. Both would retain low-energy darkening. These viewing modes remain to be implemented.
+
+Next step: Add switchable normal and speed-trait viewing modes.
