@@ -33,6 +33,7 @@ SPEED_ENERGY_COST = 1
 REPRODUCTION_THRESHOLD = 150
 REPRODUCTION_ENERGY_COST = STARTING_ENERGY
 SENSING_ENERGY_COST = 0.02
+CRITICAL_ENERGY_THRESHOLD = 50
 
 FOOD_COUNT = 150
 MAX_FOOD_COUNT = 150
@@ -47,7 +48,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The Evolution Simulator - Version 4")
 
 clock = pygame.time.Clock()
-stats_font = pygame.font.Font(None, 28)
+stats_font = pygame.font.Font(None, 27)
+legend_font = pygame.font.Font(None, 25)
 
 
 class Organism:
@@ -173,11 +175,22 @@ class Organism:
 
         return tuple(color)
 
+    def get_display_color(self):
+        speed_color = self.get_organism_color()
+
+        brightness = max(
+            0.2, 
+            min(1.0, self.energy / CRITICAL_ENERGY_THRESHOLD)
+            )
+        color = []
+        for channel in speed_color:
+            color.append(round(channel * brightness))
+        return tuple(color)
     
     def draw(self):
         pygame.draw.circle(
             screen,
-            self.get_organism_color(),
+            self.get_display_color(),
             (int(self.x), int(self.y)),
             ORGANISM_RADIUS
         )
@@ -421,15 +434,20 @@ while running:
     screen.blit(generation_text, (10,70))
     screen.blit(sensing_text, (10,100))
 
-    slow_label = stats_font.render(
+    slow_label = legend_font.render(
         "Slower end: Blue", True, SLOW_SPEED_COLOR
     )
-    fast_label = stats_font.render(
+    fast_label = legend_font.render(
         "Faster end: Faster", True, FAST_SPEED_COLOR
     )
+    screen.blit(slow_label, (10, HEIGHT - 125))
+    screen.blit(fast_label, (10, HEIGHT - 95))
 
-    screen.blit(slow_label, (10, HEIGHT - 95))
-    screen.blit(fast_label, (10, HEIGHT - 65))
+    energy_label = legend_font.render(
+        "Darker Body: Low energy", True, (0,0,0)
+    )
+    screen.blit(energy_label, (10, HEIGHT - 65))
+
     if paused:
         pause_text = stats_font.render(
             "Paused -- press Space to resume",
